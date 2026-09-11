@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#222222">
+
+<title>আমার ব্যবসার হিসাব</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:"Noto Sans Bengali","SolaimanLipi","Vrinda",Arial,sans-serif;
+    background:#f5f7f7;
+    color:#222;
+    padding-bottom:80px;
+}
+
+/* HEADER */
+.header{
+    height:65px;
+    background:#222;
+    color:white;
+    display:flex;
+    align-items:center;
+    padding:0 18px;
+    gap:20px;
+}
+
+.menu{
+    font-size:32px;
+}
+
+.header-title{
+    font-size:25px;
+    font-weight:bold;
+}
+
+/* HERO */
+.hero{
+    background:#009688;
+    color:white;
+    text-align:center;
+    padding:40px 10px;
+}
+
+.hero h1{
+    font-size:40px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    font-size:22px;
+}
+
+/* MAIN */
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px 15px;
+}
+
+/* CARD */
+.card{
+    background:white;
+    border-radius:25px;
+    padding:22px;
+    margin-bottom:20px;
+    box-shadow:0 4px 18px rgba(0,0,0,.07);
+}
+
+.card-title{
+    text-align:center;
+    font-size:30px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+/* DASHBOARD */
+.dashboard{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.dashboard-box{
+    background:#e3faf5;
+    border-radius:20px;
+    text-align:center;
+    padding:18px 8px;
+}
+
+.dashboard-box .label{
+    font-size:19px;
+}
+
+.dashboard-box .value{
+    font-size:30px;
+    font-weight:bold;
+    margin-top:7px;
+}
+
+/* QUICK BUTTONS */
+.quick-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.quick-btn{
+    border:none;
+    background:#009688;
+    color:white;
+    min-height:62px;
+    border-radius:14px;
+    font-size:19px;
+    font-family:inherit;
+    cursor:pointer;
+}
+
+.quick-btn:active{
+    transform:scale(.98);
+}
+
+/* FORM */
+.form-group{
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    font-size:17px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+input,
+select{
+    width:100%;
+    padding:13px;
+    border:1px solid #ccc;
+    border-radius:12px;
+    font-size:17px;
+    font-family:inherit;
+    background:white;
+}
+
+.main-btn{
+    width:100%;
+    border:none;
+    background:#009688;
+    color:white;
+    padding:14px;
+    border-radius:12px;
+    font-size:18px;
+    font-family:inherit;
+}
+
+.result{
+    background:#e8faf6;
+    border-radius:15px;
+    padding:15px;
+    line-height:2;
+    font-size:17px;
+    margin:15px 0;
+}
+
+/* TABLE */
+.table-box{
+    width:100%;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    min-width:650px;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:11px 8px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+}
+
+th{
+    background:#009688;
+    color:white;
+}
+
+/* PAGES */
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:75px;
+    background:white;
+    border-top:1px solid #ddd;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    z-index:999;
+}
+
+.nav-btn{
+    border:none;
+    background:white;
+    color:#222;
+    font-family:inherit;
+    font-size:14px;
+    cursor:pointer;
+}
+
+.nav-btn.active{
+    color:#009688;
+    font-weight:bold;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+
+    .header-title{
+        font-size:23px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .hero p{
+        font-size:18px;
+    }
+
+    .card-title{
+        font-size:28px;
+    }
+
+    .dashboard-box .label{
+        font-size:17px;
+    }
+
+    .dashboard-box .value{
+        font-size:27px;
+    }
+
+    .quick-btn{
+        font-size:18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="menu">☰</div>
+    <div class="header-title">আমার ব্যবসার হিসাব</div>
+</header>
+
+
+<!-- ================= HOME ================= -->
+<section id="home" class="page active">
+
+    <div class="hero">
+        <h1>দোকান হিসাব</h1>
+        <p>মুদি / পাইকারি ব্যবসার হিসাব</p>
+    </div>
+
+    <div class="container">
+
+        <!-- TODAY -->
+        <div class="card">
+
+            <div class="card-title">
+                আজকের হিসাব
+            </div>
+
+            <div class="dashboard">
+
+                <div class="dashboard-box">
+                    <div class="label">আজকের বিক্রি</div>
+                    <div class="value">৳ <span id="todaySales">০</span></div>
+                </div>
+
+                <div class="dashboard-box">
+                    <div class="label">আজকের লাভ</div>
+                    <div class="value">৳ <span id="todayProfit">০</span></div>
+                </div>
+
+                <div class="dashboard-box">
+                    <div class="label">ক্রেতার বাকি</div>
+                    <div class="value">৳ <span id="customerDue">০</span></div>
+                </div>
+
+                <div class="dashboard-box">
+                    <div class="label">সরবরাহকারীর বাকি</div>
+                    <div class="value">৳ <span id="supplierDue">০</span></div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUICK WORK -->
+        <div class="card">
+
+            <div class="card-title">
+                ⚡ দ্রুত কাজ
+            </div>
+
+            <div class="quick-grid">
+
+                <button class="quick-btn"
+                        onclick="openPage('sales')">
+                    ➕ বিক্রি
+                </button>
+
+                <button class="quick-btn"
+                        onclick="openPage('purchase')">
+                    🛒 ক্রয়
+                </button>
+
+                <button class="quick-btn"
+                        onclick="openPage('stock')">
+                    📦 স্টক
+                </button>
+
+                <button class="quick-btn"
+                        onclick="openPage('expense')">
+                    💰 খরচ
+                </button>
+
+                <button class="quick-btn"
+                        onclick="openPage('report')">
+                    📊 রিপোর্ট
+                </button>
+
+                <button class="quick-btn"
+                        onclick="backupData()">
+                    💾 ব্যাকআপ
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SALES ================= -->
+<section id="sales" class="page">
+
+<div class="container">
+
+<div class="card">
+
+<div class="card-title">
+    বিক্রির হিসাব
+</div>
+
+<div class="form-group">
+<label>পণ্য নির্বাচন</label>
+<select id="saleProduct"></select>
+</div>
+
+<div class="form-group">
+<label>পরিমাণ</label>
+<input id="saleQty" type="number" min="1" placeholder="যেমন: ৫">
+</div>
+
+<div class="form-group">
+<label>প্রতি ইউনিট বিক্রয় মূল্য</label>
+<input id="salePrice" type="number" min="0" placeholder="যেমন: ৭০">
+</div>
+
+<div class="form-group">
+<label>ক্রেতার নাম</label>
+<input id="customerName" placeholder="ক্রেতার নাম">
+</div>
+
+<div class="form-group">
+<label>পরিশোধিত টাকা</label>
+<input id="paidAmount" type="number" min="0" placeholder="যত টাকা দিয়েছে">
+</div>
+
+<div class="result">
+
+মোট বিক্রয়:
+<strong>৳ <span id="saleTotal">০</span></strong>
+<br>
+
+প্রকৃত ক্রয়মূল্য:
+<strong>৳ <span id="saleCost">০</span></strong>
+<br>
+
+লাভ:
+<strong>৳ <span id="saleProfit">০</span></strong>
+<br>
+
+বাকি:
+<strong>৳ <span id="saleDue">০</span></strong>
+
+</div>
+
+<button class="main-btn" onclick="addSale()">
+বিক্রি সংরক্ষণ করুন
+</button>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+    বিক্রির তালিকা
+</div>
+
+<div class="table-box">
+
+<table>
+
+<thead>
+<tr>
+<th>তারিখ</th>
+<th>পণ্য</th>
+<th>পরিমাণ</th>
+<th>বিক্রি</th>
+<th>লাভ</th>
+<th>বাকি</th>
+</tr>
+</thead>
+
+<tbody id="salesTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= PURCHASE ================= -->
+<section id="purchase" class="page">
+
+<div class="container">
+
+<div class="card">
+
+<div class="card-title">
+    ক্রয় / মাল কেনা
+</div>
+
+<div class="form-group">
+<label>পণ্যের নাম</label>
+<input id="purchaseProduct" placeholder="যেমন: চাল">
+</div>
+
+<div class="form-group">
+<label>পরিমাণ</label>
+<input id="purchaseQty" type="number" min="1" placeholder="যেমন: ১০০">
+</div>
+
+<div class="form-group">
+<label>প্রতি ইউনিট ক্রয়মূল্য</label>
+<input id="purchasePrice" type="number" min="0" placeholder="যেমন: ৫০">
+</div>
+
+<div class="form-group">
+<label>গাড়ি ভাড়া / পরিবহন খরচ</label>
+<input id="vehicleCost" type="number" min="0" value="0">
+</div>
+
+<div class="form-group">
+<label>সরবরাহকারীর নাম</label>
+<input id="supplierName" placeholder="সরবরাহকারীর নাম">
+</div>
+
+<div class="form-group">
+<label>পরিশোধিত টাকা</label>
+<input id="purchasePaid" type="number" min="0">
+</div>
+
+<div class="result">
+
+পণ্যের মোট দাম:
+<strong>৳ <span id="rawPurchaseTotal">০</span></strong>
+
+<br>
+
+গাড়ি ভাড়া:
+<strong>৳ <span id="showVehicleCost">০</span></strong>
+
+<br>
+
+মোট ক্রয় খরচ:
+<strong>৳ <span id="realPurchaseTotal">০</span></strong>
+
+<br>
+
+গাড়ি ভাড়াসহ প্রতি ইউনিট প্রকৃত ক্রয়মূল্য:
+<strong>৳ <span id="effectiveUnitCost">০</span></strong>
+
+<br>
+
+সরবরাহকারীর বাকি:
+<strong>৳ <span id="purchaseDue">০</span></strong>
+
+</div>
+
+<button class="main-btn" onclick="addPurchase()">
+ক্রয় সংরক্ষণ করুন
+</button>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+    ক্রয়ের তালিকা
+</div>
+
+<div class="table-box">
+
+<table>
+
+<thead>
+<tr>
+<th>তারিখ</th>
+<th>পণ্য</th>
+<th>পরিমাণ</th>
+<th>ক্রয়মূল্য</th>
+<th>গাড়ি ভাড়া</th>
+<th>প্রকৃত মূল্য</th>
+</tr>
+</thead>
+
+<tbody id="purchaseTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= STOCK ================= -->
+<section id="stock" class="page">
+
+<div class="container">
+
+<div class="card">
+
+<div class="card-title">
+    📦 বর্তমান স্টক
+</div>
+
+<div class="table-box">
+
+<table>
+
+<thead>
+<tr>
+<th>পণ্য</th>
+<th>স্টক</th>
+<th>প্রকৃত ক্রয়মূল্য</th>
+<th>বিক্রয় মূল্য</th>
+<th>সম্ভাব্য লাভ</th>
+</tr>
+</thead>
+
+<tbody id="stockTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= EXPENSE ================= -->
+<section id="expense" class="page">
+
+<div class="container">
+
+<div class="card">
+
+<div class="card-title">
+    💰 খরচের হিসাব
+</div>
+
+<div class="form-group">
+<label>খরচের ধরন</label>
+<input id="expenseName" placeholder="যেমন: দোকান ভাড়া">
+</div>
+
+<div class="form-group">
+<label>টাকার পরিমাণ</label>
+<input id="expenseAmount" type="number" min="0">
+</div>
+
+<button class="main-btn" onclick="addExpense()">
+খরচ সংরক্ষণ করুন
+</button>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+    খরচের তালিকা
+</div>
+
+<div class="table-box">
+
+<table>
+
+<thead>
+<tr>
+<th>তারিখ</th>
+<th>খরচের ধরন</th>
+<th>টাকা</th>
+</tr>
+</thead>
+
+<tbody id="expenseTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= REPORT ================= -->
+<section id="report" class="page">
+
+<div class="container">
+
+<div class="card">
+
+<div class="card-title">
+    📊 ব্যবসার রিপোর্ট
+</div>
+
+<div class="dashboard">
+
+<div class="dashboard-box">
+<div class="label">মোট বিক্রি</div>
+<div class="value">৳ <span id="reportSales">০</span></div>
+</div>
+
+<div class="dashboard-box">
+<div class="label">মোট লাভ</div>
+<div class="value">৳ <span id="reportProfit">০</span></div>
+</div>
+
+<div class="dashboard-box">
+<div class="label">মোট খরচ</div>
+<div class="value">৳ <span id="reportExpense">০</span></div>
+</div>
+
+<div class="dashboard-box">
+<div class="label">নিট লাভ</div>
+<div class="value">৳ <span id="reportNet">০</span></div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-title">
+    💾 ডেটা ব্যবস্থাপনা
+</div>
+
+<button class="main-btn" onclick="backupData()">
+ব্যাকআপ ডাউনলোড
+</button>
+
+<br><br>
+
+<button class="main-btn"
+        onclick="document.getElementById('restoreFile').click()">
+ব্যাকআপ ফেরত আনুন
+</button>
+
+<input
+    id="restoreFile"
+    type="file"
+    accept=".json"
+    style="display:none"
+    onchange="restoreData(event)"
+>
+
+<br><br>
+
+<button
+    class="main-btn"
+    style="background:#d32f2f"
+    onclick="clearAllData()">
+সব হিসাব মুছে ফেলুন
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= BOTTOM NAV ================= -->
+
+<nav class="bottom-nav">
+
+<button
+    id="nav-home"
+    class="nav-btn active"
+    onclick="openPage('home')">
+    🏠<br>
+    হোম
+</button>
+
+<button
+    id="nav-sales"
+    class="nav-btn"
+    onclick="openPage('sales')">
+    🛍️<br>
+    বিক্রি
+</button>
+
+<button
+    id="nav-purchase"
+    class="nav-btn"
+    onclick="openPage('purchase')">
+    🛒<br>
+    ক্রয়
+</button>
+
+<button
+    id="nav-stock"
+    class="nav-btn"
+    onclick="openPage('stock')">
+    📦<br>
+    স্টক
+</button>
+
+<button
+    id="nav-report"
+    class="nav-btn"
+    onclick="openPage('report')">
+    📊<br>
+    রিপোর্ট
+</button>
+
+</nav>
+
+
+<script>
+
+/* ================= DATABASE ================= */
+
+const STORAGE_KEY = "amar_babsar_hisab_v2";
+
+let data = JSON.parse(
+    localStorage.getItem(STORAGE_KEY)
+) || {
+
+    products: [],
+    sales: [],
+    purchases: [],
+    expenses: []
+
+};
+
+
+/* ================= SAVE ================= */
+
+function saveData(){
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* ================= BANGLA NUMBER ================= */
+
+function bn(number){
+
+    return Number(number || 0)
+        .toLocaleString("bn-BD", {
+            maximumFractionDigits:2
+        });
+
+}
+
+
+/* ================= DATE ================= */
+
+function today(){
+
+    return new Date().toLocaleDateString("bn-BD");
+
+}
+
+
+/* ================= PAGE OPEN ================= */
+
+function openPage(page){
+
+    /* সব page বন্ধ */
+    document.querySelectorAll(".page")
+        .forEach(function(item){
+
+            item.classList.remove("active");
+
+        });
+
+
+    /* নির্বাচিত page চালু */
+    let selected =
+        document.getElementById(page);
+
+    if(selected){
+
+        selected.classList.add("active");
+
+    }
+
+
+    /* সব navigation inactive */
+    document.querySelectorAll(".nav-btn")
+        .forEach(function(btn){
+
+            btn.classList.remove("active");
+
+        });
+
+
+    /* selected navigation active */
+    let nav =
+        document.getElementById("nav-" + page);
+
+    if(nav){
+
+        nav.classList.add("active");
+
+    }
+
+
+    updateAll();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* ================= PRODUCT LIST ================= */
+
+function updateProductList(){
+
+    let select =
+        document.getElementById("saleProduct");
+
+    select.innerHTML = "";
+
+
+    if(data.products.length === 0){
+
+        let option =
+            document.createElement("option");
+
+        option.value = "";
+
+        option.textContent =
+            "স্টকে কোনো পণ্য নেই";
+
+        select.appendChild(option);
+
+        return;
+
+    }
+
+
+    data.products.forEach(function(product){
+
+        let option =
+            document.createElement("option");
+
+        option.value =
+            product.name;
+
+        option.textContent =
+            product.name +
+            " — স্টক " +
+            bn(product.stock) +
+            " — মূল্য ৳" +
+            bn(product.cost);
+
+        select.appendChild(option);
+
+    });
+
+}
+
+
+/* ================= PURCHASE PREVIEW ================= */
+
+function updatePurchasePreview(){
+
+    let qty =
+        Number(document.getElementById("purchaseQty").value) || 0;
+
+    let price =
+        Number(document.getElementById("purchasePrice").value) || 0;
+
+    let vehicle =
+        Number(document.getElementById("vehicleCost").value) || 0;
+
+    let paid =
+        Number(document.getElementById("purchasePaid").value) || 0;
+
+
+    let raw =
+        qty * price;
+
+    let total =
+        raw + vehicle;
+
+    let unitCost =
+        qty > 0 ? total / qty : 0;
+
+    let due =
+        Math.max(0,total-paid);
+
+
+    document.getElementById("rawPurchaseTotal")
+        .textContent = bn(raw);
+
+    document.getElementById("showVehicleCost")
+        .textContent = bn(vehicle);
+
+    document.getElementById("realPurchaseTotal")
+        .textContent = bn(total);
+
+    document.getElementById("effectiveUnitCost")
+        .textContent = bn(unitCost);
+
+    document.getElementById("purchaseDue")
+        .textContent = bn(due);
+
+}
+
+
+/* ================= PURCHASE ================= */
+
+function addPurchase(){
+
+    let name =
+        document.getElementById("purchaseProduct")
+        .value.trim();
+
+    let qty =
+        Number(document.getElementById("purchaseQty").value);
+
+    let price =
+        Number(document.getElementById("purchasePrice").value);
+
+    let vehicle =
+        Number(document.getElementById("vehicleCost").value) || 0;
+
+    let supplier =
+        document.getElementById("supplierName")
+        .value.trim();
+
+    let paid =
+        Number(document.getElementById("purchasePaid").value) || 0;
+
+
+    if(!name){
+
+        alert("পণ্যের নাম লিখুন।");
+        return;
+
+    }
+
+
+    if(!qty || qty <= 0){
+
+        alert("সঠিক পরিমাণ লিখুন।");
+        return;
+
+    }
+
+
+    if(price < 0 || isNaN(price)){
+
+        alert("সঠিক ক্রয়মূল্য লিখুন।");
+        return;
+
+    }
+
+
+    /* পণ্যের দাম */
+    let rawTotal =
+        qty * price;
+
+
+    /* গাড়ি ভাড়া যোগ */
+    let total =
+        rawTotal + vehicle;
+
+
+    /* প্রকৃত ইউনিট মূল্য */
+    let actualUnitCost =
+        total / qty;
+
+
+    /* বাকি */
+    let due =
+        Math.max(0,total-paid);
+
+
+    /* আগের পণ্য খুঁজে বের */
+    let product =
+        data.products.find(
+            function(p){
+                return p.name === name;
+            }
+        );
+
+
+    if(product){
+
+        let oldStock =
+            Number(product.stock) || 0;
+
+        let oldCost =
+            Number(product.cost) || 0;
+
+        let newStock =
+            oldStock + qty;
+
+
+        /* Weighted Average Cost */
+
+        let newCost =
+            (
+                (oldStock * oldCost) +
+                (qty * actualUnitCost)
+            ) / newStock;
+
+
+        product.stock =
+            newStock;
+
+        product.cost =
+            newCost;
+
+
+    }else{
+
+        data.products.push({
+
+            name:name,
+
+            stock:qty,
+
+            cost:actualUnitCost,
+
+            salePrice:actualUnitCost
+
+        });
+
+    }
+
+
+    /* Purchase history */
+
+    data.purchases.push({
+
+        date:today(),
+
+        product:name,
+
+        qty:qty,
+
+        unitPrice:price,
+
+        vehicle:vehicle,
+
+        rawTotal:rawTotal,
+
+        total:total,
+
+        effectiveCost:actualUnitCost,
+
+        supplier:supplier,
+
+        paid:paid,
+
+        due:due
+
+    });
+
+
+    saveData();
+
+    alert(
+        "ক্রয় সংরক্ষণ হয়েছে।\n\n" +
+        "গাড়ি ভাড়াসহ প্রকৃত ক্রয়মূল্য: ৳" +
+        bn(actualUnitCost)
+    );
+
+
+    document.getElementById("purchaseProduct").value="";
+    document.getElementById("purchaseQty").value="";
+    document.getElementById("purchasePrice").value="";
+    document.getElementById("vehicleCost").value="0";
+    document.getElementById("supplierName").value="";
+    document.getElementById("purchasePaid").value="";
+
+
+    updateAll();
+
+}
+
+
+/* ================= SALE PREVIEW ================= */
+
+function updateSalePreview(){
+
+    let name =
+        document.getElementById("saleProduct").value;
+
+    let product =
+        data.products.find(
+            function(p){
+                return p.name === name;
+            }
+        );
+
+
+    let qty =
+        Number(document.getElementById("saleQty").value) || 0;
+
+    let price =
+        Number(document.getElementById("salePrice").value) || 0;
+
+    let paid =
+        Number(document.getElementById("paidAmount").value) || 0;
+
+
+    let cost =
+        product ? Number(product.cost) : 0;
+
+
+    let total =
+        qty * price;
+
+    let costTotal =
+        qty * cost;
+
+    let profit =
+        total - costTotal;
+
+    let due =
+        Math.max(0,total-paid);
+
+
+    document.getElementById("saleTotal")
+        .textContent=bn(total);
+
+    document.getElementById("saleCost")
+        .textContent=bn(costTotal);
+
+    document.getElementById("saleProfit")
+        .textContent=bn(profit);
+
+    document.getElementById("saleDue")
+        .textContent=bn(due);
+
+}
+
+
+/* ================= SALE ================= */
+
+function addSale(){
+
+    let name =
+        document.getElementById("saleProduct").value;
+
+    let qty =
+        Number(document.getElementById("saleQty").value);
+
+    let price =
+        Number(document.getElementById("salePrice").value);
+
+    let customer =
+        document.getElementById("customerName")
+        .value.trim();
+
+    let paid =
+        Number(document.getElementById("paidAmount").value) || 0;
+
+
+    let product =
+        data.products.find(
+            function(p){
+                return p.name === name;
+            }
+        );
+
+
+    if(!product){
+
+        alert("আগে পণ্য ক্রয় করে স্টকে যোগ করুন।");
+        return;
+
+    }
+
+
+    if(!qty || qty <= 0){
+
+        alert("সঠিক পরিমাণ লিখুন।");
+        return;
+
+    }
+
+
+    if(qty > product.stock){
+
+        alert(
+            "পর্যাপ্ত স্টক নেই।\n" +
+            "বর্তমান স্টক: " +
+            bn(product.stock)
+        );
+
+        return;
+
+    }
+
+
+    if(!price || price < 0){
+
+        alert("সঠিক বিক্রয় মূল্য লিখুন।");
+        return;
+
+    }
+
+
+    let total =
+        qty * price;
+
+    let costTotal =
+        qty * Number(product.cost);
+
+    let profit =
+        total - costTotal;
+
+    let due =
+        Math.max(0,total-paid);
+
+
+    data.sales.push({
+
+        date:today(),
+
+        product:name,
+
+        qty:qty,
+
+        price:price,
+
+        total:total,
+
+        cost:costTotal,
+
+        profit:profit,
+
+        customer:customer || "সাধারণ ক্রেতা",
+
+        paid:paid,
+
+        due:due
+
+    });
+
+
+    /* স্টক কমানো */
+
+    product.stock -= qty;
+
+
+    saveData();
+
+
+    alert("বিক্রির হিসাব সংরক্ষণ হয়েছে।");
+
+
+    document.getElementById("saleQty").value="";
+    document.getElementById("salePrice").value="";
+    document.getElementById("customerName").value="";
+    document.getElementById("paidAmount").value="";
+
+
+    updateAll();
+
+}
+
+
+/* ================= EXPENSE ================= */
+
+function addExpense(){
+
+    let name =
+        document.getElementById("expenseName")
+        .value.trim();
+
+    let amount =
+        Number(document.getElementById("expenseAmount").value);
+
+
+    if(!name){
+
+        alert("খরচের ধরন লিখুন।");
+        return;
+
+    }
+
+
+    if(!amount || amount <= 0){
+
+        alert("সঠিক টাকার পরিমাণ লিখুন।");
+        return;
+
+    }
+
+
+    data.expenses.push({
+
+        date:today(),
+
+        name:name,
+
+        amount:amount
+
+    });
+
+
+    saveData();
+
+    alert("খরচ সংরক্ষণ হয়েছে।");
+
+
+    document.getElementById("expenseName").value="";
+    document.getElementById("expenseAmount").value="";
+
+
+    updateAll();
+
+}
+
+
+/* ================= TABLES ================= */
+
+function renderSales(){
+
+    let table =
+        document.getElementById("salesTable");
+
+    table.innerHTML="";
+
+
+    data.sales.slice().reverse()
+    .forEach(function(s){
+
+        let row =
+            document.createElement("tr");
+
+        row.innerHTML=`
+
+        <td>${s.date}</td>
+
+        <td>${s.product}</td>
+
+        <td>${bn(s.qty)}</td>
+
+        <td>৳ ${bn(s.total)}</td>
+
+        <td>৳ ${bn(s.profit)}</td>
+
+        <td>৳ ${bn(s.due)}</td>
+
+        `;
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+function renderPurchases(){
+
+    let table =
+        document.getElementById("purchaseTable");
+
+    table.innerHTML="";
+
+
+    data.purchases.slice().reverse()
+    .forEach(function(p){
+
+        let row =
+            document.createElement("tr");
+
+        row.innerHTML=`
+
+        <td>${p.date}</td>
+
+        <td>${p.product}</td>
+
+        <td>${bn(p.qty)}</td>
+
+        <td>৳ ${bn(p.rawTotal)}</td>
+
+        <td>৳ ${bn(p.vehicle)}</td>
+
+        <td>৳ ${bn(p.effectiveCost)}</td>
+
+        `;
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+function renderStock(){
+
+    let table =
+        document.getElementById("stockTable");
+
+    table.innerHTML="";
+
+
+    data.products.forEach(function(p){
+
+        let salePrice =
+            Number(p.salePrice) || 0;
+
+        let profit =
+            (salePrice - Number(p.cost))
+            * Number(p.stock);
+
+
+        let row =
+            document.createElement("tr");
+
+
+        row.innerHTML=`
+
+        <td>${p.name}</td>
+
+        <td>${bn(p.stock)}</td>
+
+        <td>৳ ${bn(p.cost)}</td>
+
+        <td>৳ ${bn(salePrice)}</td>
+
+        <td>৳ ${bn(profit)}</td>
+
+        `;
+
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+function renderExpenses(){
+
+    let table =
+        document.getElementById("expenseTable");
+
+    table.innerHTML="";
+
+
+    data.expenses.slice().reverse()
+    .forEach(function(e){
+
+        let row =
+            document.createElement("tr");
+
+
+        row.innerHTML=`
+
+        <td>${e.date}</td>
+
+        <td>${e.name}</td>
+
+        <td>৳ ${bn(e.amount)}</td>
+
+        `;
+
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+/* ================= DASHBOARD ================= */
+
+function updateDashboard(){
+
+    let sales =
+        data.sales.reduce(
+            (sum,item)=>
+                sum + Number(item.total || 0),
+            0
+        );
+
+
+    let profit =
+        data.sales.reduce(
+            (sum,item)=>
+                sum + Number(item.profit || 0),
+            0
+        );
+
+
+    let expense =
+        data.expenses.reduce(
+            (sum,item)=>
+                sum + Number(item.amount || 0),
+            0
+        );
+
+
+    let customerDue =
+        data.sales.reduce(
+            (sum,item)=>
+                sum + Number(item.due || 0),
+            0
+        );
+
+
+    let supplierDue =
+        data.purchases.reduce(
+            (sum,item)=>
+                sum + Number(item.due || 0),
+            0
+        );
+
+
+    let net =
+        profit - expense;
+
+
+    let date =
+        today();
+
+
+    let todaySales =
+        data.sales
+        .filter(
+            item => item.date === date
+        )
+        .reduce(
+            (sum,item)=>
+                sum + Number(item.total || 0),
+            0
+        );
+
+
+    let todayProfit =
+        data.sales
+        .filter(
+            item => item.date === date
+        )
+        .reduce(
+            (sum,item)=>
+                sum + Number(item.profit || 0),
+            0
+        );
+
+
+    document.getElementById("todaySales")
+        .textContent=bn(todaySales);
+
+    document.getElementById("todayProfit")
+        .textContent=bn(todayProfit);
+
+    document.getElementById("customerDue")
+        .textContent=bn(customerDue);
+
+    document.getElementById("supplierDue")
+        .textContent=bn(supplierDue);
+
+
+    document.getElementById("reportSales")
+        .textContent=bn(sales);
+
+    document.getElementById("reportProfit")
+        .textContent=bn(profit);
+
+    document.getElementById("reportExpense")
+        .textContent=bn(expense);
+
+    document.getElementById("reportNet")
+        .textContent=bn(net);
+
+}
+
+
+/* ================= BACKUP ================= */
+
+function backupData(){
+
+    let blob =
+        new Blob(
+            [JSON.stringify(data,null,2)],
+            {
+                type:"application/json"
+            }
+        );
+
+
+    let url =
+        URL.createObjectURL(blob);
+
+
+    let link =
+        document.createElement("a");
+
+
+    link.href=url;
+
+    link.download=
+        "আমার-ব্যবসার-হিসাব-ব্যাকআপ.json";
+
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+/* ================= RESTORE ================= */
+
+function restoreData(event){
+
+    let file =
+        event.target.files[0];
+
+    if(!file){
+        return;
+    }
+
+
+    let reader =
+        new FileReader();
+
+
+    reader.onload=function(e){
+
+        try{
+
+            let restored =
+                JSON.parse(e.target.result);
+
+
+            if(
+                !restored.products ||
+                !restored.sales ||
+                !restored.purchases ||
+                !restored.expenses
+            ){
+
+                throw new Error();
+
+            }
+
+
+            data=restored;
+
+            saveData();
+
+            updateAll();
+
+            alert(
+                "ব্যাকআপ সফলভাবে ফেরত আনা হয়েছে।"
+            );
+
+
+        }catch(error){
+
+            alert(
+                "ব্যাকআপ ফাইলটি সঠিক নয়।"
+            );
+
+        }
+
+    };
+
+
+    reader.readAsText(file);
+
+}
+
+
+/* ================= DELETE ALL ================= */
+
+function clearAllData(){
+
+    let ok =
+        confirm(
+            "আপনি কি সব হিসাব মুছে ফেলতে চান?"
+        );
+
+
+    if(!ok){
+        return;
+    }
+
+
+    data={
+
+        products:[],
+        sales:[],
+        purchases:[],
+        expenses:[]
+
+    };
+
+
+    saveData();
+
+    updateAll();
+
+
+    alert(
+        "সব হিসাব মুছে ফেলা হয়েছে।"
+    );
+
+}
+
+
+/* ================= UPDATE ALL ================= */
+
+function updateAll(){
+
+    updateProductList();
+
+    updatePurchasePreview();
+
+    updateSalePreview();
+
+    renderSales();
+
+    renderPurchases();
+
+    renderStock();
+
+    renderExpenses();
+
+    updateDashboard();
+
+}
+
+
+/* ================= INPUT EVENTS ================= */
+
+document.getElementById("purchaseQty")
+.addEventListener("input",updatePurchasePreview);
+
+document.getElementById("purchasePrice")
+.addEventListener("input",updatePurchasePreview);
+
+document.getElementById("vehicleCost")
+.addEventListener("input",updatePurchasePreview);
+
+document.getElementById("purchasePaid")
+.addEventListener("input",updatePurchasePreview);
+
+
+document.getElementById("saleProduct")
+.addEventListener("change",updateSalePreview);
+
+document.getElementById("saleQty")
+.addEventListener("input",updateSalePreview);
+
+document.getElementById("salePrice")
+.addEventListener("input",updateSalePreview);
+
+document.getElementById("paidAmount")
+.addEventListener("input",updateSalePreview);
+
+
+/* ================= START ================= */
+
+updateAll();
+
+</script>
+
+</body>
+</html>
