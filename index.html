@@ -1,1536 +1,258 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#111827">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#087f75">
 <title>আমার ব্যবসার হিসাব</title>
-
 <style>
-
-/* =========================
-   BASIC
-========================= */
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:
-    "Noto Sans Bengali",
-    "SolaimanLipi",
-    "Vrinda",
-    Arial,
-    sans-serif;
-
-    background:#f3f6f8;
-    color:#17202a;
-
-    padding-bottom:82px;
-}
-
-
-/* =========================
-   HEADER
-========================= */
-
-.header{
-    height:66px;
-
-    background:#111827;
-    color:#fff;
-
-    display:flex;
-    align-items:center;
-
-    padding:0 17px;
-
-    gap:17px;
-
-    position:sticky;
-    top:0;
-
-    z-index:1000;
-
-    box-shadow:
-    0 3px 12px rgba(0,0,0,.18);
-}
-
-.menu{
-    font-size:31px;
-    line-height:1;
-}
-
-.header-title{
-    font-size:23px;
-    font-weight:800;
-}
-
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-    background:
-    linear-gradient(
-        135deg,
-        #008f83,
-        #00a99b
-    );
-
-    color:#fff;
-
-    text-align:center;
-
-    padding:38px 15px 35px;
-}
-
-.hero h1{
-    font-size:40px;
-    font-weight:900;
-
-    margin-bottom:5px;
-}
-
-.hero p{
-    font-size:19px;
-    opacity:.95;
-}
-
-
-/* =========================
-   CONTAINER
-========================= */
-
-.container{
-    width:100%;
-    max-width:950px;
-
-    margin:auto;
-
-    padding:20px 15px;
-}
-
-
-/* =========================
-   CARD
-========================= */
-
-.card{
-    background:#fff;
-
-    border-radius:24px;
-
-    padding:20px;
-
-    margin-bottom:18px;
-
-    box-shadow:
-    0 5px 22px rgba(20,30,40,.07);
-}
-
-.card-title{
-    text-align:center;
-
-    font-size:27px;
-    font-weight:900;
-
-    margin-bottom:18px;
-}
-
-
-/* =========================
-   DASHBOARD
-========================= */
-
-.dashboard{
-    display:grid;
-
-    grid-template-columns:
-    repeat(2,1fr);
-
-    gap:12px;
-}
-
-.dashboard-box{
-    background:#ecfbf8;
-
-    border:1px solid #d9f4ef;
-
-    border-radius:19px;
-
-    padding:17px 10px;
-
-    text-align:center;
-}
-
-.dashboard-box .label{
-    font-size:16px;
-
-    color:#4b5563;
-
-    font-weight:600;
-}
-
-.dashboard-box .value{
-    margin-top:6px;
-
-    font-size:27px;
-
-    font-weight:900;
-
-    color:#111827;
-}
-
-
-/* =========================
-   MAIN HIGHLIGHT
-========================= */
-
-.highlight{
-    background:
-    linear-gradient(
-        135deg,
-        #008f83,
-        #00796b
-    );
-
-    color:#fff;
-
-    border-radius:21px;
-
-    padding:21px;
-
-    margin-bottom:18px;
-
-    box-shadow:
-    0 7px 20px rgba(0,143,131,.22);
-}
-
-.highlight-title{
-    font-size:18px;
-    font-weight:bold;
-
-    opacity:.95;
-}
-
-.highlight-value{
-    font-size:34px;
-    font-weight:900;
-
-    margin:5px 0;
-}
-
-.highlight-text{
-    font-size:14px;
-    opacity:.9;
-}
-
-
-/* =========================
-   PROGRESS
-========================= */
-
-.progress-area{
-    margin-top:13px;
-}
-
-.progress-head{
-    display:flex;
-    justify-content:space-between;
-
-    font-size:14px;
-
-    margin-bottom:6px;
-}
-
-.progress{
-    height:12px;
-
-    background:#d9e3e5;
-
-    border-radius:20px;
-
-    overflow:hidden;
-}
-
-.progress-bar{
-    height:100%;
-
-    width:0%;
-
-    background:#008f83;
-
-    border-radius:20px;
-
-    transition:.4s;
-}
-
-
-/* =========================
-   QUICK ACTION
-========================= */
-
-.quick-grid{
-    display:grid;
-
-    grid-template-columns:
-    repeat(2,1fr);
-
-    gap:11px;
-}
-
-.quick-btn{
-    min-height:63px;
-
-    border:0;
-
-    border-radius:15px;
-
-    background:#008f83;
-
-    color:#fff;
-
-    font-family:inherit;
-
-    font-size:18px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.15s;
-}
-
-.quick-btn:active{
-    transform:scale(.97);
-}
-
-
-/* =========================
-   FORM
-========================= */
-
-.form-group{
-    margin-bottom:15px;
-}
-
-label{
-    display:block;
-
-    font-size:16px;
-
-    font-weight:700;
-
-    margin-bottom:6px;
-}
-
-input,
-select{
-    width:100%;
-
-    padding:13px 14px;
-
-    border:
-    1px solid #d1d5db;
-
-    border-radius:12px;
-
-    background:#fff;
-
-    font-family:inherit;
-
-    font-size:16px;
-
-    outline:none;
-}
-
-input:focus,
-select:focus{
-    border-color:#008f83;
-
-    box-shadow:
-    0 0 0 3px rgba(0,143,131,.1);
-}
-
-.main-btn{
-    width:100%;
-
-    padding:14px;
-
-    border:0;
-
-    border-radius:13px;
-
-    background:#008f83;
-
-    color:#fff;
-
-    font-family:inherit;
-
-    font-size:17px;
-
-    font-weight:700;
-
-    cursor:pointer;
-}
-
-
-/* =========================
-   RESULT
-========================= */
-
-.result{
-    background:#f0fbf8;
-
-    border:
-    1px solid #d8f2ed;
-
-    border-radius:16px;
-
-    padding:15px;
-
-    margin:15px 0;
-
-    line-height:2;
-
-    font-size:16px;
-}
-
-
-/* =========================
-   TABLE
-========================= */
-
-.table-box{
-    overflow-x:auto;
-}
-
-table{
-    width:100%;
-
-    min-width:680px;
-
-    border-collapse:collapse;
-}
-
-th,
-td{
-    padding:11px 8px;
-
-    border-bottom:
-    1px solid #e5e7eb;
-
-    text-align:left;
-
-    font-size:14px;
-}
-
-th{
-    background:#008f83;
-
-    color:#fff;
-
-    font-weight:700;
-}
-
-
-/* =========================
-   PAGE
-========================= */
-
-.page{
-    display:none;
-}
-
-.page.active{
-    display:block;
-}
-
-
-/* =========================
-   BOTTOM NAV
-========================= */
-
-.bottom-nav{
-    position:fixed;
-
-    bottom:0;
-    left:0;
-    right:0;
-
-    height:78px;
-
-    background:#fff;
-
-    border-top:
-    1px solid #e5e7eb;
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(5,1fr);
-
-    z-index:2000;
-
-    box-shadow:
-    0 -4px 15px rgba(0,0,0,.07);
-}
-
-.nav-btn{
-    border:0;
-
-    background:#fff;
-
-    color:#374151;
-
-    font-family:inherit;
-
-    font-size:13px;
-
-    cursor:pointer;
-}
-
-.nav-btn.active{
-    color:#008f83;
-
-    font-weight:900;
-}
-
-
-/* =========================
-   STATUS
-========================= */
-
-.green{
-    color:#008f83;
-    font-weight:bold;
-}
-
-.red{
-    color:#d32f2f;
-    font-weight:bold;
-}
-
-.gray{
-    color:#6b7280;
-}
-
-
-/* =========================
-   INVESTMENT CARD
-========================= */
-
-.investment-box{
-    background:#f8fafc;
-
-    border:1px solid #e5e7eb;
-
-    border-radius:18px;
-
-    padding:17px;
-
-    margin-bottom:12px;
-}
-
-.investment-box h3{
-    font-size:17px;
-
-    margin-bottom:6px;
-}
-
-.investment-box .big{
-    font-size:26px;
-
-    font-weight:900;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:600px){
-
-    .header-title{
-        font-size:21px;
-    }
-
-    .hero h1{
-        font-size:34px;
-    }
-
-    .hero p{
-        font-size:17px;
-    }
-
-    .card-title{
-        font-size:25px;
-    }
-
-    .dashboard-box .label{
-        font-size:15px;
-    }
-
-    .dashboard-box .value{
-        font-size:25px;
-    }
-
-    .highlight-value{
-        font-size:31px;
-    }
-
-    .quick-btn{
-        font-size:17px;
-    }
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#087f75;--primary2:#0b9b8e;--light:#e9faf7;--bg:#f4f7f7;--text:#17201f;--muted:#6b7775;--danger:#d9363e;--card:#fff;--border:#e4ebea}
+body{font-family:"Noto Sans Bengali","SolaimanLipi","Vrinda",Arial,sans-serif;background:var(--bg);color:var(--text);padding-bottom:82px}
+button,input,select{font:inherit}
+.header{height:64px;background:#202222;color:#fff;display:flex;align-items:center;padding:0 16px;gap:16px;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px #0002}
+.menu{font-size:30px;line-height:1}
+.header h1{font-size:23px}
+.page{display:none}.page.active{display:block}
+.hero{background:linear-gradient(135deg,#087f75,#0b9b8e);color:#fff;padding:32px 18px 30px;text-align:center}
+.hero h2{font-size:38px}.hero p{font-size:18px;margin-top:6px;opacity:.95}
+.container{max-width:960px;margin:auto;padding:18px 14px}
+.card{background:var(--card);border-radius:24px;padding:20px;margin-bottom:16px;box-shadow:0 5px 24px #183d3910;border:1px solid #edf1f0}
+.title{font-size:26px;font-weight:800;text-align:center;margin-bottom:18px}
+.subtitle{text-align:center;color:var(--muted);margin:-10px 0 18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.metric{background:var(--light);border:1px solid #d5f1ec;border-radius:18px;padding:16px 10px;text-align:center}
+.metric .label{font-size:16px;color:#36504d}.metric .value{font-size:27px;font-weight:900;margin-top:5px}
+.metric.highlight{background:#087f75;color:#fff;border-color:#087f75}.metric.highlight .label{color:#d9fffa}
+.metric.loss .value{color:var(--danger)}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.btn{border:0;border-radius:13px;padding:13px 10px;cursor:pointer;background:var(--primary);color:#fff;font-weight:700}
+.btn:active{transform:scale(.98)}
+.btn.gray{background:#5d6866}.btn.red{background:var(--danger)}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.group{margin-bottom:2px}.group.full{grid-column:1/-1}
+label{display:block;font-weight:700;font-size:15px;margin-bottom:6px}
+input,select{width:100%;padding:12px;border:1px solid #cfdad8;border-radius:11px;background:#fff;outline:none}
+input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px #087f7518}
+.preview{background:#f0fbf9;border-radius:15px;padding:14px;margin-top:15px;line-height:1.9}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}.actions .btn{flex:1;min-width:150px}
+.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:680px}th,td{padding:11px 9px;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}th{background:#087f75;color:#fff}tr:hover td{background:#fafdfc}
+.notice{padding:13px 15px;border-radius:14px;background:#fff7df;border:1px solid #f0df9b;color:#65520d;line-height:1.7;margin-top:14px}
+.big{font-size:34px;font-weight:900;text-align:center;margin:6px 0}.center{text-align:center}.muted{color:var(--muted);font-size:14px}
+.bottom{position:fixed;bottom:0;left:0;right:0;height:74px;background:#fff;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr);z-index:60}
+.nav{border:0;background:#fff;color:#404b49;font-size:13px;cursor:pointer}.nav.active{color:var(--primary);font-weight:800}
+.empty{text-align:center;color:#7b8583;padding:22px}
+@media(max-width:650px){.form{grid-template-columns:1fr}.quick{grid-template-columns:1fr 1fr}.hero h2{font-size:32px}.header h1{font-size:21px}.metric .value{font-size:24px}.title{font-size:25px}}
 </style>
-
 </head>
-
-
 <body>
 
-
-<!-- ==================================================
-     HEADER
-================================================== -->
-
-<header class="header">
-
-    <div class="menu">☰</div>
-
-    <div class="header-title">
-        আমার ব্যবসার হিসাব
-    </div>
-
-</header>
-
-
-
-<!-- ==================================================
-     HOME
-================================================== -->
+<header class="header"><div class="menu">☰</div><h1>আমার ব্যবসার হিসাব</h1></header>
 
 <section id="home" class="page active">
-
-    <div class="hero">
-
-        <h1>দোকান হিসাব</h1>
-
-        <p>
-            মুদি / পাইকারি ব্যবসার পূর্ণ হিসাব
-        </p>
-
-    </div>
-
-
-    <div class="container">
-
-
-        <!-- =============================
-             INVESTMENT / BREAK EVEN
-        ============================== -->
-
-        <div class="highlight">
-
-            <div class="highlight-title">
-                চালান / বিনিয়োগ উঠাতে বাকি
-            </div>
-
-            <div class="highlight-value">
-                ৳ <span id="breakEvenRemaining">০</span>
-            </div>
-
-            <div class="highlight-text">
-                আপনার মোট বিনিয়োগের টাকা উঠাতে আরও কত টাকার বিক্রি দরকার
-            </div>
-
-            <div class="progress-area">
-
-                <div class="progress-head">
-
-                    <span>
-                        বিনিয়োগ উঠেছে
-                    </span>
-
-                    <span>
-                        <span id="investmentPercent">০</span>%
-                    </span>
-
-                </div>
-
-                <div class="progress">
-
-                    <div
-                        class="progress-bar"
-                        id="investmentProgress">
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- =============================
-             TODAY
-        ============================== -->
-
-        <div class="card">
-
-            <div class="card-title">
-                আজকের হিসাব
-            </div>
-
-
-            <div class="dashboard">
-
-
-                <div class="dashboard-box">
-
-                    <div class="label">
-                        আজকের বিক্রি
-                    </div>
-
-                    <div class="value">
-                        ৳ <span id="todaySales">০</span>
-                    </div>
-
-                </div>
-
-
-                <div class="dashboard-box">
-
-                    <div class="label">
-                        আজকের লাভ
-                    </div>
-
-                    <div class="value">
-                        ৳ <span id="todayProfit">০</span>
-                    </div>
-
-                </div>
-
-
-                <div class="dashboard-box">
-
-                    <div class="label">
-                        ক্রেতার বাকি
-                    </div>
-
-                    <div class="value">
-                        ৳ <span id="customerDue">০</span>
-                    </div>
-
-                </div>
-
-
-                <div class="dashboard-box">
-
-                    <div class="label">
-                        সরবরাহকারীর বাকি
-                    </div>
-
-                    <div class="value">
-                        ৳ <span id="supplierDue">০</span>
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-
-
-        <!-- =============================
-             OVERALL
-        ============================== -->
-
-        <div class="card">
-
-            <div class="card-title">
-                ব্যবসার Overall হিসাব
-            </div>
-
-
-            <div class="dashboard">
-
-
-                <div class="dashboard-box">
-
-                    <div class="label">
-                        মোট বিনিয়োগ
-                    </div>
-
-                    <div class="value">
-                        ৳ <span id="totalInvestment">০</span>
-                    </div>
-
-                </div>
-
-
-                <div class="dashboard-box">
-
-                    <div class="label">
-                        মোট বিক্রি
-                    </div>
-
-                    <div class="value">
-                        ৳ <span id="totalSales">০</span>
-                    </div>
-
-                </div>
-
-
-                <div class="dashboard-box">
-
-                    <div class="label">
-                        মোট লাভ
-                    </div>
-
-                    <div class="value">
-                        ৳ <span id="totalProfit">০</span>
-                    </div>
-
-                </div>
-
-
-                <div class="dashboard-box">
-
-                    <div class="label">
-                        ব্যবসায়িক খরচ
-                    </div>
-
-                    <div class="value">
-                        ৳ <span id="totalExpense">০</span>
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-
-
-        <!-- =============================
-             FINAL RESULT
-        ============================== -->
-
-        <div class="card">
-
-            <div class="card-title">
-                চূড়ান্ত ফলাফল
-            </div>
-
-
-            <div class="investment-box">
-
-                <h3>
-                    পণ্যের বিক্রয় লাভ
-                </h3>
-
-                <div class="big green">
-                    ৳ <span id="grossProfit">০</span>
-                </div>
-
-            </div>
-
-
-            <div class="investment-box">
-
-                <h3>
-                    গাড়ি ভাড়াসহ মোট ক্রয়
-                </h3>
-
-                <div class="big">
-                    ৳ <span id="totalPurchase">০</span>
-                </div>
-
-            </div>
-
-
-            <div class="investment-box">
-
-                <h3>
-                    Overall লাভ / ক্ষতি
-                </h3>
-
-                <div
-                    class="big"
-                    id="overallResult">
-                    ৳ ০
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- =============================
-             QUICK WORK
-        ============================== -->
-
-        <div class="card">
-
-            <div class="card-title">
-                দ্রুত কাজ
-            </div>
-
-
-            <div class="quick-grid">
-
-                <button
-                    class="quick-btn"
-                    onclick="openPage('sales')">
-
-                    ➕ বিক্রি
-
-                </button>
-
-
-                <button
-                    class="quick-btn"
-                    onclick="openPage('purchase')">
-
-                    🛒 ক্রয়
-
-                </button>
-
-
-                <button
-                    class="quick-btn"
-                    onclick="openPage('stock')">
-
-                    📦 স্টক
-
-                </button>
-
-
-                <button
-                    class="quick-btn"
-                    onclick="openPage('expense')">
-
-                    💰 খরচ
-
-                </button>
-
-
-                <button
-                    class="quick-btn"
-                    onclick="openPage('investment')">
-
-                    💵 বিনিয়োগ
-
-                </button>
-
-
-                <button
-                    class="quick-btn"
-                    onclick="openPage('report')">
-
-                    📊 রিপোর্ট
-
-                </button>
-
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- ==================================================
-     SALES
-================================================== -->
-
-<section id="sales" class="page">
-
-<div class="container">
-
-
-<div class="card">
-
-<div class="card-title">
-    বিক্রির হিসাব
-</div>
-
-
-<div class="form-group">
-
-<label>
-    পণ্য নির্বাচন
-</label>
-
-<select id="saleProduct"></select>
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-    পরিমাণ
-</label>
-
-<input
-    id="saleQty"
-    type="number"
-    min="1"
-    placeholder="যেমন: ৫">
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-    প্রতি ইউনিট বিক্রয় মূল্য
-</label>
-
-<input
-    id="salePrice"
-    type="number"
-    min="0"
-    placeholder="যেমন: ৭০">
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-    ক্রেতার নাম
-</label>
-
-<input
-    id="customerName"
-    placeholder="ক্রেতার নাম">
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-    পরিশোধিত টাকা
-</label>
-
-<input
-    id="paidAmount"
-    type="number"
-    min="0"
-    placeholder="যত টাকা দিয়েছে">
-
-</div>
-
-
-<div class="result">
-
-মোট বিক্রয়:
-<strong>
-৳ <span id="saleTotal">০</span>
-</strong>
-
-<br>
-
-প্রকৃত ক্রয়মূল্য:
-<strong>
-৳ <span id="saleCost">০</span>
-</strong>
-
-<br>
-
-লাভ:
-<strong>
-৳ <span id="saleProfit">০</span>
-</strong>
-
-<br>
-
-বাকি:
-<strong>
-৳ <span id="saleDue">০</span>
-</strong>
-
-</div>
-
-
-<button
-    class="main-btn"
-    onclick="addSale()">
-
-    বিক্রি সংরক্ষণ করুন
-
-</button>
-
-</div>
-
-
-
-<div class="card">
-
-<div class="card-title">
-    বিক্রির তালিকা
-</div>
-
-
-<div class="table-box">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>তারিখ</th>
-<th>পণ্য</th>
-<th>পরিমাণ</th>
-<th>বিক্রি</th>
-<th>লাভ</th>
-<th>বাকি</th>
-
-</tr>
-
-</thead>
-
-<tbody id="salesTable"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-
-<!-- ==================================================
-     PURCHASE
-================================================== -->
-
-<section id="purchase" class="page">
-
-<div class="container">
-
-
-<div class="card">
-
-<div class="card-title">
-    ক্রয় / চালানের হিসাব
-</div>
-
-
-<div class="form-group">
-
-<label>
-    পণ্যের নাম
-</label>
-
-<input
-    id="purchaseProduct"
-    placeholder="যেমন: চাল">
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-    পরিমাণ
-</label>
-
-<input
-    id="purchaseQty"
-    type="number"
-    min="1"
-    placeholder="যেমন: ১০০">
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-    প্রতি ইউনিট ক্রয়মূল্য
-</label>
-
-<input
-    id="purchasePrice"
-    type="number"
-    min="0"
-    placeholder="যেমন: ৫০">
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-    গাড়ি ভাড়া / পরিবহন খরচ
-</label>
-
-<input
-    id="vehicleCost"
-    type="number"
-    min="0"
-    value="0">
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-    সরবরাহকারীর নাম
-</label>
-
-<input
-    id="supplierName"
-    placeholder="সরবরাহকারীর নাম">
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-    পরিশোধিত টাকা
-</label>
-
-<input
-    id="purchasePaid"
-    type="number"
-    min="0">
-
-</div>
-
-
-<div class="result">
-
-পণ্যের দাম:
-<strong>
-৳ <span id="rawPurchaseTotal">০</span>
-</strong>
-
-<br>
-
-গাড়ি ভাড়া:
-<strong>
-৳ <span id="showVehicleCost">০</span>
-</strong>
-
-<br>
-
-<strong>
-মোট প্রকৃত ক্রয়:
-৳ <span id="realPurchaseTotal">০</span>
-</strong>
-
-<br>
-
-গাড়ি ভাড়াসহ প্রতি ইউনিট:
-<strong>
-৳ <span id="effectiveUnitCost">০</span>
-</strong>
-
-<br>
-
-সরবরাহকারীর বাকি:
-<strong>
-৳ <span id="purchaseDue">০</span>
-</strong>
-
-</div>
-
-
-<button
-    class="main-btn"
-    onclick="addPurchase()">
-
-    ক্রয় সংরক্ষণ করুন
-
-</button>
-
-</div>
-
-
-
-<div class="card">
-
-<div class="card-title">
-    চালানের তালিকা
-</div>
-
-
-<div class="table-box">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>তারিখ</th>
-<th>পণ্য</th>
-<th>পরিমাণ</th>
-<th>পণ্যের দাম</th>
-<th>গাড়ি ভাড়া</th>
-<th>মোট</th>
-
-</tr>
-
-</thead>
-
-<tbody id="purchaseTable"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-
-<!-- ==================================================
-     STOCK
-================================================== -->
-
-<section id="stock" class="page">
-
+<div class="hero"><h2>দোকান হিসাব</h2><p>মুদি / পাইকারি ব্যবসার সম্পূর্ণ হিসাব</p></div>
 <div class="container">
 
 <div class="card">
-
-<div class="card-title">
-    বর্তমান স্টক
+<div class="title">আজকের হিসাব</div>
+<div class="grid2">
+<div class="metric"><div class="label">আজকের বিক্রি</div><div class="value">৳ <span id="todaySales">০</span></div></div>
+<div class="metric"><div class="label">আজকের লাভ</div><div class="value">৳ <span id="todayProfit">০</span></div></div>
+<div class="metric"><div class="label">ক্রেতার বাকি</div><div class="value">৳ <span id="customerDue">০</span></div></div>
+<div class="metric"><div class="label">সরবরাহকারীর বাকি</div><div class="value">৳ <span id="supplierDue">০</span></div></div>
+</div>
 </div>
 
-
-<div class="table-box">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>পণ্য</th>
-<th>স্টক</th>
-<th>প্রকৃত ক্রয়মূল্য</th>
-<th>বিক্রয় মূল্য</th>
-<th>সম্ভাব্য লাভ</th>
-
-</tr>
-
-</thead>
-
-<tbody id="stockTable"></tbody>
-
-</table>
-
+<div class="card">
+<div class="title">💼 ব্যবসার সারসংক্ষেপ</div>
+<div class="grid2">
+<div class="metric"><div class="label">মোট বিনিয়োগ</div><div class="value">৳ <span id="investTotal">০</span></div></div>
+<div class="metric"><div class="label">মোট বিক্রি</div><div class="value">৳ <span id="allSales">০</span></div></div>
+<div class="metric"><div class="label">মোট লাভ</div><div class="value">৳ <span id="grossProfit">০</span></div></div>
+<div class="metric"><div class="label">চালান + অন্যান্য খরচ</div><div class="value">৳ <span id="allExpense">০</span></div></div>
+<div class="metric highlight"><div class="label">Overall লাভ / ক্ষতি</div><div class="value">৳ <span id="netProfit">০</span></div></div>
+<div class="metric"><div class="label">বিনিয়োগ ফেরত বাকি</div><div class="value">৳ <span id="investmentLeft">০</span></div></div>
+</div>
 </div>
 
+<div class="card">
+<div class="title">🎯 বিনিয়োগ ফেরত ও Break-even</div>
+<div class="big">৳ <span id="salesNeeded">০</span></div>
+<div class="center muted">বর্তমান গড় লাভের হার অনুযায়ী আনুমানিক আরও যত টাকার বিক্রি দরকার</div>
+<div class="notice">বিনিয়োগ আলাদা করে মূলধন হিসেবে ধরা হয়েছে। ক্রয়, গাড়ি ভাড়া ও অন্যান্য খরচ থেকে প্রকৃত লাভ/ক্ষতি হিসাব করা হবে।</div>
 </div>
 
+<div class="card">
+<div class="title">⚡ দ্রুত কাজ</div>
+<div class="quick">
+<button class="btn" onclick="openPage('investment')">💼 বিনিয়োগ</button>
+<button class="btn" onclick="openPage('sales')">🛍️ বিক্রি</button>
+<button class="btn" onclick="openPage('purchase')">🛒 ক্রয়</button>
+<button class="btn" onclick="openPage('stock')">📦 স্টক</button>
+<button class="btn" onclick="openPage('expense')">💰 খরচ</button>
+<button class="btn" onclick="openPage('report')">📊 রিপোর্ট</button>
 </div>
-
+</div>
+</div>
 </section>
 
-
-
-<!-- ==================================================
-     EXPENSE
-================================================== -->
-
-<section id="expense" class="page">
-
-<div class="container">
-
-
+<section id="investment" class="page"><div class="container">
 <div class="card">
-
-<div class="card-title">
-    ব্যবসায়িক খরচ
+<div class="title">💼 ব্যবসায় বিনিয়োগ</div><div class="subtitle">ব্যবসায় কত টাকা মূলধন দিয়েছেন তা এখানে যোগ করুন</div>
+<div class="form">
+<div class="group"><label>বিনিয়োগের পরিমাণ</label><input id="invAmount" type="number" min="1" placeholder="যেমন: ৫০,০০০"></div>
+<div class="group"><label>বিনিয়োগের বিবরণ</label><input id="invNote" placeholder="যেমন: ব্যবসা শুরু"></div>
 </div>
-
-
-<div class="form-group">
-
-<label>
-    খরচের ধরন
-</label>
-
-<input
-    id="expenseName"
-    placeholder="যেমন: দোকান ভাড়া">
-
+<div class="actions"><button class="btn" onclick="addInvestment()">বিনিয়োগ সংরক্ষণ করুন</button></div>
 </div>
+<div class="card"><div class="title">বিনিয়োগের তালিকা</div><div class="tablewrap"><table><thead><tr><th>তারিখ</th><th>বিবরণ</th><th>টাকা</th></tr></thead><tbody id="investmentTable"></tbody></table></div></div>
+</div></section>
 
-
-<div class="form-group">
-
-<label>
-    টাকার পরিমাণ
-</label>
-
-<input
-    id="expenseAmount"
-    type="number"
-    min="0">
-
+<section id="sales" class="page"><div class="container">
+<div class="card"><div class="title">🛍️ বিক্রির হিসাব</div>
+<div class="form">
+<div class="group full"><label>পণ্য</label><select id="saleProduct"></select></div>
+<div class="group"><label>পরিমাণ</label><input id="saleQty" type="number" min="1"></div>
+<div class="group"><label>প্রতি ইউনিট বিক্রয় মূল্য</label><input id="salePrice" type="number" min="0"></div>
+<div class="group"><label>ক্রেতার নাম</label><input id="customerName"></div>
+<div class="group"><label>পরিশোধিত টাকা</label><input id="paidAmount" type="number" min="0"></div>
 </div>
-
-
-<button
-    class="main-btn"
-    onclick="addExpense()">
-
-    খরচ সংরক্ষণ করুন
-
-</button>
-
+<div class="preview">মোট বিক্রি: <b>৳ <span id="saleTotal">০</span></b><br>পণ্যের প্রকৃত খরচ: <b>৳ <span id="saleCost">০</span></b><br>লাভ: <b>৳ <span id="saleProfit">০</span></b><br>বাকি: <b>৳ <span id="saleDue">০</span></b></div>
+<div class="actions"><button class="btn" onclick="addSale()">বিক্রি সংরক্ষণ করুন</button></div>
 </div>
+<div class="card"><div class="title">বিক্রির তালিকা</div><div class="tablewrap"><table><thead><tr><th>তারিখ</th><th>পণ্য</th><th>পরিমাণ</th><th>বিক্রি</th><th>লাভ</th><th>বাকি</th></tr></thead><tbody id="salesTable"></tbody></table></div></div>
+</div></section>
 
-
-
-<div class="card">
-
-<div class="card-title">
-    খরচের তালিকা
+<section id="purchase" class="page"><div class="container">
+<div class="card"><div class="title">🛒 ক্রয় / চালানের হিসাব</div>
+<div class="form">
+<div class="group"><label>পণ্যের নাম</label><input id="purchaseProduct"></div>
+<div class="group"><label>পরিমাণ</label><input id="purchaseQty" type="number" min="1"></div>
+<div class="group"><label>প্রতি ইউনিট ক্রয়মূল্য</label><input id="purchasePrice" type="number" min="0"></div>
+<div class="group"><label>গাড়ি ভাড়া / পরিবহন</label><input id="vehicleCost" type="number" min="0" value="0"></div>
+<div class="group"><label>সরবরাহকারীর নাম</label><input id="supplierName"></div>
+<div class="group"><label>পরিশোধিত টাকা</label><input id="purchasePaid" type="number" min="0"></div>
 </div>
-
-
-<div class="table-box">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>তারিখ</th>
-<th>খরচের ধরন</th>
-<th>টাকা</th>
-
-</tr>
-
-</thead>
-
-<tbody id="expenseTable"></tbody>
-
-</table>
-
+<div class="preview">পণ্যের দাম: <b>৳ <span id="rawPurchaseTotal">০</span></b><br>গাড়ি ভাড়া: <b>৳ <span id="showVehicleCost">০</span></b><br>চালানসহ মোট খরচ: <b>৳ <span id="realPurchaseTotal">০</span></b><br>প্রতি ইউনিট প্রকৃত ক্রয়মূল্য: <b>৳ <span id="effectiveUnitCost">০</span></b><br>সরবরাহকারীর বাকি: <b>৳ <span id="purchaseDue">০</span></b></div>
+<div class="actions"><button class="btn" onclick="addPurchase()">ক্রয় সংরক্ষণ করুন</button></div>
 </div>
+<div class="card"><div class="title">ক্রয়ের তালিকা</div><div class="tablewrap"><table><thead><tr><th>তারিখ</th><th>পণ্য</th><th>পরিমাণ</th><th>পণ্যের দাম</th><th>গাড়ি</th><th>চালানসহ</th><th>ইউনিট প্রকৃত মূল্য</th></tr></thead><tbody id="purchaseTable"></tbody></table></div></div>
+</div></section>
 
+<section id="stock" class="page"><div class="container">
+<div class="card"><div class="title">📦 বর্তমান স্টক</div><div class="tablewrap"><table><thead><tr><th>পণ্য</th><th>স্টক</th><th>প্রকৃত ক্রয়মূল্য</th><th>বিক্রয় মূল্য</th><th>সম্ভাব্য লাভ</th></tr></thead><tbody id="stockTable"></tbody></table></div></div>
+</div></section>
+
+<section id="expense" class="page"><div class="container">
+<div class="card"><div class="title">💰 অন্যান্য খরচ</div><div class="subtitle">দোকান ভাড়া, বিদ্যুৎ, শ্রমিক ইত্যাদি</div>
+<div class="form"><div class="group"><label>খরচের ধরন</label><input id="expenseName"></div><div class="group"><label>টাকার পরিমাণ</label><input id="expenseAmount" type="number" min="0"></div></div>
+<div class="actions"><button class="btn" onclick="addExpense()">খরচ সংরক্ষণ করুন</button></div>
 </div>
+<div class="card"><div class="title">খরচের তালিকা</div><div class="tablewrap"><table><thead><tr><th>তারিখ</th><th>ধরন</th><th>টাকা</th></tr></thead><tbody id="expenseTable"></tbody></table></div></div>
+</div></section>
 
-
+<section id="report" class="page"><div class="container">
+<div class="card"><div class="title">📊 সম্পূর্ণ ব্যবসায়িক রিপোর্ট</div>
+<div class="grid2">
+<div class="metric"><div class="label">মোট বিনিয়োগ</div><div class="value">৳ <span id="rInv">০</span></div></div>
+<div class="metric"><div class="label">মোট বিক্রি</div><div class="value">৳ <span id="rSales">০</span></div></div>
+<div class="metric"><div class="label">পণ্যের মোট প্রকৃত খরচ</div><div class="value">৳ <span id="rCost">০</span></div></div>
+<div class="metric"><div class="label">গাড়ি ভাড়া</div><div class="value">৳ <span id="rVehicle">০</span></div></div>
+<div class="metric"><div class="label">অন্যান্য খরচ</div><div class="value">৳ <span id="rExpense">০</span></div></div>
+<div class="metric highlight"><div class="label">Overall লাভ / ক্ষতি</div><div class="value">৳ <span id="rNet">০</span></div></div>
 </div>
-
-</section>
-
-
-
-<!-- ==================================================
-     INVESTMENT
-================================================== -->
-
-<section id="investment" class="page">
-
-<div class="container">
-
-
-<div class="card">
-
-<div class="card-title">
-    ব্যবসায় বিনিয়োগ
+<div class="notice">Overall ফলাফল = মোট বিক্রি − বিক্রি হওয়া পণ্যের প্রকৃত খরচ − অন্যান্য খরচ। গাড়ি ভাড়া পণ্যের প্রকৃত ক্রয়মূল্যের মধ্যে যোগ হওয়ায় সেটি দ্বিগুণ বাদ দেওয়া হয় না।</div>
 </div>
+<div class="card"><div class="title">💾 ডেটা ব্যবস্থাপনা</div><div class="actions"><button class="btn" onclick="backupData()">ব্যাকআপ নিন</button><button class="btn gray" onclick="document.getElementById('restore').click()">ব্যাকআপ ফেরত আনুন</button><button class="btn red" onclick="clearData()">সব ডেটা মুছুন</button></div><input id="restore" type="file" accept=".json" style="display:none" onchange="restoreData(event)"></div>
+</div></section>
 
+<nav class="bottom">
+<button class="nav active" id="nav-home" onclick="openPage('home')">🏠<br>হোম</button>
+<button class="nav" id="nav-sales" onclick="openPage('sales')">🛍️<br>বিক্রি</button>
+<button class="nav" id="nav-purchase" onclick="openPage('purchase')">🛒<br>ক্রয়</button>
+<button class="nav" id="nav-stock" onclick="openPage('stock')">📦<br>স্টক</button>
+<button class="nav" id="nav-report" onclick="openPage('report')">📊<br>রিপোর্ট</button>
+</nav>
 
-<div class="form-group">
-
-<label>
-    বিনিয়োগের পরিমাণ
-</label>
-
-<input
-    id="investmentAmount"
-    type="number"
-    min="0"
-    placeholder="যেমন: ৫০,০০০">
-
-</div>
-
-
-<button
-    class="main-btn"
-    onclick="saveInvestment()">
-
-    বিনিয়োগ সংরক্ষণ করুন
-
-</button>
-
-</div>
-
-
-
-<div class="card">
-
-<div class="card-title">
-    বিনিয়োগের অবস্থা
-</div>
-
-
-<div class="investment-box">
-
-<h3>
-মোট বিনিয়োগ
-</h3>
-
-<div class="big">
-৳ <span id="investmentPageTotal">০</span>
-</div>
-
-</div>
-
-
-<div class="investment-box">
-
-<h3>
-মোট বিক্রি
-</h3>
-
-<div class="big gree
+<script>
+const KEY="amar_babsar_hisab_professional_v3";
+let data=JSON.parse(localStorage.getItem(KEY)||"null")||{investments:[],products:[],sales:[],purchases:[],expenses:[]};
+const $=id=>document.getElementById(id);
+function save(){localStorage.setItem(KEY,JSON.stringify(data))}
+function num(v){return Number(v)||0}
+function money(v){return num(v).toLocaleString("bn-BD",{maximumFractionDigits:2})}
+function dateNow(){return new Date().toLocaleDateString("bn-BD")}
+function openPage(page){
+ document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+ $(page).classList.add("active");
+ document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));
+ let n=$("nav-"+page);if(n)n.classList.add("active");
+ updateAll();scrollTo({top:0,behavior:"smooth"});
+}
+function addInvestment(){
+ let amount=num($("invAmount").value),note=$("invNote").value.trim()||"ব্যবসায় বিনিয়োগ";
+ if(amount<=0)return alert("সঠিক বিনিয়োগের পরিমাণ দিন।");
+ data.investments.push({date:dateNow(),amount,note});save();
+ $("invAmount").value="";$("invNote").value="";updateAll();alert("বিনিয়োগ সংরক্ষণ হয়েছে।");
+}
+function purchasePreview(){
+ let q=num($("purchaseQty").value),p=num($("purchasePrice").value),v=num($("vehicleCost").value),paid=num($("purchasePaid").value);
+ let raw=q*p,total=raw+v,cost=q?total/q:0,due=Math.max(0,total-paid);
+ $("rawPurchaseTotal").textContent=money(raw);$("showVehicleCost").textContent=money(v);$("realPurchaseTotal").textContent=money(total);$("effectiveUnitCost").textContent=money(cost);$("purchaseDue").textContent=money(due);
+}
+function addPurchase(){
+ let name=$("purchaseProduct").value.trim(),q=num($("purchaseQty").value),p=num($("purchasePrice").value),v=num($("vehicleCost").value),supplier=$("supplierName").value.trim()||"সাধারণ সরবরাহকারী",paid=num($("purchasePaid").value);
+ if(!name)return alert("পণ্যের নাম দিন।");if(q<=0)return alert("সঠিক পরিমাণ দিন।");
+ let raw=q*p,total=raw+v,cost=total/q,due=Math.max(0,total-paid);
+ let product=data.products.find(x=>x.name===name);
+ if(product){
+   let oldStock=num(product.stock),oldCost=num(product.cost),newStock=oldStock+q;
+   product.cost=((oldStock*oldCost)+(q*cost))/newStock;product.stock=newStock;
+ }else data.products.push({name,stock:q,cost,salePrice:cost});
+ data.purchases.push({date:dateNow(),product:name,qty:q,unitPrice:p,vehicle:v,total,effectiveCost:cost,supplier,paid,due});
+ save();["purchaseProduct","purchaseQty","purchasePrice","vehicleCost","supplierName","purchasePaid"].forEach(id=>$(id).value=id==="vehicleCost"?"0":"");
+ updateAll();alert("ক্রয়/চালান সংরক্ষণ হয়েছে।");
+}
+function salePreview(){
+ let p=data.products.find(x=>x.name===$("saleProduct").value),q=num($("saleQty").value),price=num($("salePrice").value),paid=num($("paidAmount").value),cost=p?num(p.cost):0;
+ let total=q*price,c=q*cost,profit=total-c,due=Math.max(0,total-paid);
+ $("saleTotal").textContent=money(total);$("saleCost").textContent=money(c);$("saleProfit").textContent=money(profit);$("saleDue").textContent=money(due);
+}
+function addSale(){
+ let name=$("saleProduct").value,q=num($("saleQty").value),price=num($("salePrice").value),customer=$("customerName").value.trim()||"সাধারণ ক্রেতা",paid=num($("paidAmount").value),p=data.products.find(x=>x.name===name);
+ if(!p)return alert("আগে ক্রয় করে স্টকে পণ্য যোগ করুন।");if(q<=0)return alert("সঠিক পরিমাণ দিন।");if(q>p.stock)return alert("পর্যাপ্ত স্টক নেই। বর্তমান স্টক: "+money(p.stock));
+ let total=q*price,c=q*num(p.cost),profit=total-c,due=Math.max(0,total-paid);
+ data.sales.push({date:dateNow(),product:name,qty:q,price,total,cost:c,profit,customer,paid,due});p.stock-=q;
+ save();["saleQty","salePrice","customerName","paidAmount"].forEach(id=>$(id).value="");updateAll();alert("বিক্রির হিসাব সংরক্ষণ হয়েছে।");
+}
+function addExpense(){
+ let name=$("expenseName").value.trim(),amount=num($("expenseAmount").value);
+ if(!name||amount<=0)return alert("সঠিক খরচের তথ্য দিন।");
+ data.expenses.push({date:dateNow(),name,amount});save();$("expenseName").value="";$("expenseAmount").value="";updateAll();alert("খরচ সংরক্ষণ হয়েছে۔");
+}
+function render(){
+ $("saleProduct").innerHTML=data.products.length?data.products.map(p=>`<option value="${esc(p.name)}">${esc(p.name)} — স্টক ${money(p.stock)} — ৳${money(p.cost)}</option>`).join(""):`<option value="">স্টকে কোনো পণ্য নেই</option>`;
+ $("investmentTable").innerHTML=data.investments.length?data.investments.slice().reverse().map(x=>`<tr><td>${x.date}</td><td>${esc(x.note)}</td><td>৳ ${money(x.amount)}</td></tr>`).join(""):`<tr><td colspan="3" class="empty">কোনো বিনিয়োগ নেই</td></tr>`;
+ $("salesTable").innerHTML=data.sales.length?data.sales.slice().reverse().map(x=>`<tr><td>${x.date}</td><td>${esc(x.product)}</td><td>${money(x.qty)}</td><td>৳ ${money(x.total)}</td><td>৳ ${money(x.profit)}</td><td>৳ ${money(x.due)}</td></tr>`).join(""):`<tr><td colspan="6" class="empty">কোনো বিক্রি নেই</td></tr>`;
+ $("purchaseTable").innerHTML=data.purchases.length?data.purchases.slice().reverse().map(x=>`<tr><td>${x.date}</td><td>${esc(x.product)}</td><td>${money(x.qty)}</td><td>৳ ${money(x.unitPrice*x.qty)}</td><td>৳ ${money(x.vehicle)}</td><td>৳ ${money(x.total)}</td><td>৳ ${money(x.effectiveCost)}</td></tr>`).join(""):`<tr><td colspan="7" class="empty">কোনো ক্রয় নেই</td></tr>`;
+ $("expenseTable").innerHTML=data.expenses.length?data.expenses.slice().reverse().map(x=>`<tr><td>${x.date}</td><td>${esc(x.name)}</td><td>৳ ${money(x.amount)}</td></tr>`).join(""):`<tr><td colspan="3" class="empty">কোনো খরচ নেই</td></tr>`;
+ $("stockTable").innerHTML=data.products.length?data.products.map(p=>`<tr><td>${esc(p.name)}</td><td>${money(p.stock)}</td><td>৳ ${money(p.cost)}</td><td>৳ ${money(p.salePrice)}</td><td>৳ ${money((num(p.salePrice)-num(p.cost))*num(p.stock))}</td></tr>`).join(""):`<tr><td colspan="5" class="empty">স্টকে কোনো পণ্য নেই</td></tr>`;
+}
+function calc(){
+ let inv=data.investments.reduce((s,x)=>s+num(x.amount),0);
+ let sales=data.sales.reduce((s,x)=>s+num(x.total),0);
+ let cogs=data.sales.reduce((s,x)=>s+num(x.cost),0);
+ let gross=sales-cogs;
+ let vehicle=data.purchases.reduce((s,x)=>s+num(x.vehicle),0);
+ let other=data.expenses.reduce((s,x)=>s+num(x.amount),0);
+ /* গাড়ি ভাড়া purchase cost-এর মধ্যে ইতিমধ্যে COGS-এ আছে; তাই আবার বাদ দেওয়া হবে না */
+ let net=gross-other;
+ let due=data.sales.reduce((s,x)=>s+num(x.due),0);
+ let supplierDue=data.purchases.reduce((s,x)=>s+num(x.due),0);
+ let today=dateNow(),ts=data.sales.filter(x=>x.date===today).reduce((s,x)=>s+num(x.total),0),tp=data.sales.filter(x=>x.date===today).reduce((s,x)=>s+num(x.profit),0);
+ let left=Math.max(0,inv-net);
+ let margin=sales>0?Math.max(0,net/sales):0;
+ let needed=margin>0?left/margin:0;
+ [["todaySales",ts],["todayProfit",tp],["customerDue",due],["supplierDue",supplierDue],["investTotal",inv],["allSales",sales],["grossProfit",gross],["allExpense",vehicle+other],["netProfit",net],["investmentLeft",left],["salesNeeded",needed],["rInv",inv],["rSales",sales],["rCost",cogs],["rVehicle",vehicle],["rExpense",other],["rNet",net]].forEach(([id,v])=>$(id).textContent=money(v));
+}
+function esc(s){return String(s??"").replace(
