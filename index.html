@@ -216,6 +216,54 @@ $("restoreFile").addEventListener("change",function(e){
 $("clear").addEventListener("click",function(){if(confirm("সব হিসাব মুছে ফেলবেন?")){D={investments:[],purchases:[],sales:[],expenses:[],products:[]};save();render()}});
 render();
 })();
+ <!-- বিনিয়োগ ফেরত হিসাব -->
+<div style="background:#fff;padding:18px;border-radius:18px;margin:15px 0;
+box-shadow:0 3px 15px #0001;font-family:Arial,sans-serif">
+
+<h2 style="text-align:center">💰 বিনিয়োগ ফেরত হিসাব</h2>
+
+<label>মোট বিনিয়োগ (৳)</label>
+<input id="investment" type="number" placeholder="যেমন 50000"
+style="width:100%;padding:12px;margin:6px 0 12px;border-radius:10px;border:1px solid #ccc">
+
+<label>এখন পর্যন্ত উঠেছে (৳)</label>
+<input id="raised" type="number" placeholder="যেমন 12000"
+style="width:100%;padding:12px;margin:6px 0 12px;border-radius:10px;border:1px solid #ccc">
+
+<label>প্রতিদিন গড়ে ওঠে (৳)</label>
+<input id="daily" type="number" placeholder="যেমন 1000"
+style="width:100%;padding:12px;margin:6px 0 15px;border-radius:10px;border:1px solid #ccc">
+
+<button onclick="calculateReturn()" 
+style="width:100%;padding:14px;background:#078b7f;color:white;
+border:0;border-radius:10px;font-size:17px;font-weight:bold">
+হিসাব দেখুন
+</button>
+
+<div id="returnResult" style="margin-top:15px;background:#e9faf7;
+padding:15px;border-radius:12px;line-height:2">
+</div>
+
+</div>
+
+<script>
+function calculateReturn(){
+
+    let investment = Number(document.getElementById("investment").value);
+    let raised = Number(document.getElementById("raised").value);
+    let daily = Number(document.getElementById("daily").value);
+
+    let remaining = Math.max(0, investment - raised);
+
+    let days = daily > 0 ? Math.ceil(remaining / daily) : 0;
+
+    document.getElementById("returnResult").innerHTML = `
+        মোট বিনিয়োগ: <b>৳ ${investment.toLocaleString()}</b><br>
+        এখন পর্যন্ত উঠেছে: <b>৳ ${raised.toLocaleString()}</b><br>
+        ফেরত পেতে বাকি: <b>৳ ${remaining.toLocaleString()}</b><br>
+        আনুমানিক সময়: <b>${days} দিন</b>
+    `;
+}
 </script>
 </body>
 </html>
