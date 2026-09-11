@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#087f75">
-<title>আমার ব্যবসার হিসাব</title>
+<title>আমার ব্যবসার হিসাব — Professional</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--primary:#087f75;--primary2:#0b9b8e;--light:#e9faf7;--bg:#f4f7f7;--text:#17201f;--muted:#6b7775;--danger:#d9363e;--card:#fff;--border:#e4ebea}
@@ -43,11 +43,12 @@ input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px #087f7
 .nav{border:0;background:#fff;color:#404b49;font-size:13px;cursor:pointer}.nav.active{color:var(--primary);font-weight:800}
 .empty{text-align:center;color:#7b8583;padding:22px}
 @media(max-width:650px){.form{grid-template-columns:1fr}.quick{grid-template-columns:1fr 1fr}.hero h2{font-size:32px}.header h1{font-size:21px}.metric .value{font-size:24px}.title{font-size:25px}}
-</style>
+
+.drawer{position:fixed;inset:0;z-index:100;pointer-events:none}.drawer.open{pointer-events:auto}.drawer-bg{position:absolute;inset:0;background:#0006;opacity:0;transition:.2s}.drawer.open .drawer-bg{opacity:1}.drawer-panel{position:absolute;left:0;top:0;bottom:0;width:min(310px,82vw);background:#fff;padding:80px 18px 20px;transform:translateX(-100%);transition:.25s;box-shadow:5px 0 25px #0003}.drawer.open .drawer-panel{transform:translateX(0)}.drawer-panel h3{font-size:23px;margin-bottom:14px}.drawer-link{width:100%;border:0;background:#f1f8f7;padding:14px;margin:5px 0;border-radius:12px;text-align:left;color:#173b37;font-weight:700;cursor:pointer}.drawer-close{position:absolute;right:15px;top:18px;border:0;background:#eee;border-radius:50%;width:42px;height:42px;font-size:24px}</style>
 </head>
 <body>
 
-<header class="header"><div class="menu">☰</div><h1>আমার ব্যবসার হিসাব</h1></header>
+<header class="header"><button type="button" class="menu" id="menuBtn" aria-label="মেনু">☰</button><h1>আমার ব্যবসার হিসাব</h1></header>
 
 <section id="home" class="page active">
 <div class="hero"><h2>দোকান হিসাব</h2><p>মুদি / পাইকারি ব্যবসার সম্পূর্ণ হিসাব</p></div>
@@ -103,7 +104,7 @@ input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px #087f7
 <div class="group"><label>বিনিয়োগের পরিমাণ</label><input id="invAmount" type="number" min="1" placeholder="যেমন: ৫০,০০০"></div>
 <div class="group"><label>বিনিয়োগের বিবরণ</label><input id="invNote" placeholder="যেমন: ব্যবসা শুরু"></div>
 </div>
-<div class="actions"><button class="btn" onclick="addInvestment()">বিনিয়োগ সংরক্ষণ করুন</button></div>
+<div class="actions"><button type="button" class="btn">বিনিয়োগ সংরক্ষণ করুন</button></div>
 </div>
 <div class="card"><div class="title">বিনিয়োগের তালিকা</div><div class="tablewrap"><table><thead><tr><th>তারিখ</th><th>বিবরণ</th><th>টাকা</th></tr></thead><tbody id="investmentTable"></tbody></table></div></div>
 </div></section>
@@ -118,7 +119,7 @@ input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px #087f7
 <div class="group"><label>পরিশোধিত টাকা</label><input id="paidAmount" type="number" min="0"></div>
 </div>
 <div class="preview">মোট বিক্রি: <b>৳ <span id="saleTotal">০</span></b><br>পণ্যের প্রকৃত খরচ: <b>৳ <span id="saleCost">০</span></b><br>লাভ: <b>৳ <span id="saleProfit">০</span></b><br>বাকি: <b>৳ <span id="saleDue">০</span></b></div>
-<div class="actions"><button class="btn" onclick="addSale()">বিক্রি সংরক্ষণ করুন</button></div>
+<div class="actions"><button type="button" class="btn">বিক্রি সংরক্ষণ করুন</button></div>
 </div>
 <div class="card"><div class="title">বিক্রির তালিকা</div><div class="tablewrap"><table><thead><tr><th>তারিখ</th><th>পণ্য</th><th>পরিমাণ</th><th>বিক্রি</th><th>লাভ</th><th>বাকি</th></tr></thead><tbody id="salesTable"></tbody></table></div></div>
 </div></section>
@@ -134,7 +135,7 @@ input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px #087f7
 <div class="group"><label>পরিশোধিত টাকা</label><input id="purchasePaid" type="number" min="0"></div>
 </div>
 <div class="preview">পণ্যের দাম: <b>৳ <span id="rawPurchaseTotal">০</span></b><br>গাড়ি ভাড়া: <b>৳ <span id="showVehicleCost">০</span></b><br>চালানসহ মোট খরচ: <b>৳ <span id="realPurchaseTotal">০</span></b><br>প্রতি ইউনিট প্রকৃত ক্রয়মূল্য: <b>৳ <span id="effectiveUnitCost">০</span></b><br>সরবরাহকারীর বাকি: <b>৳ <span id="purchaseDue">০</span></b></div>
-<div class="actions"><button class="btn" onclick="addPurchase()">ক্রয় সংরক্ষণ করুন</button></div>
+<div class="actions"><button type="button" class="btn">ক্রয় সংরক্ষণ করুন</button></div>
 </div>
 <div class="card"><div class="title">ক্রয়ের তালিকা</div><div class="tablewrap"><table><thead><tr><th>তারিখ</th><th>পণ্য</th><th>পরিমাণ</th><th>পণ্যের দাম</th><th>গাড়ি</th><th>চালানসহ</th><th>ইউনিট প্রকৃত মূল্য</th></tr></thead><tbody id="purchaseTable"></tbody></table></div></div>
 </div></section>
@@ -146,7 +147,7 @@ input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px #087f7
 <section id="expense" class="page"><div class="container">
 <div class="card"><div class="title">💰 অন্যান্য খরচ</div><div class="subtitle">দোকান ভাড়া, বিদ্যুৎ, শ্রমিক ইত্যাদি</div>
 <div class="form"><div class="group"><label>খরচের ধরন</label><input id="expenseName"></div><div class="group"><label>টাকার পরিমাণ</label><input id="expenseAmount" type="number" min="0"></div></div>
-<div class="actions"><button class="btn" onclick="addExpense()">খরচ সংরক্ষণ করুন</button></div>
+<div class="actions"><button type="button" class="btn">খরচ সংরক্ষণ করুন</button></div>
 </div>
 <div class="card"><div class="title">খরচের তালিকা</div><div class="tablewrap"><table><thead><tr><th>তারিখ</th><th>ধরন</th><th>টাকা</th></tr></thead><tbody id="expenseTable"></tbody></table></div></div>
 </div></section>
@@ -163,8 +164,10 @@ input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px #087f7
 </div>
 <div class="notice">Overall ফলাফল = মোট বিক্রি − বিক্রি হওয়া পণ্যের প্রকৃত খরচ − অন্যান্য খরচ। গাড়ি ভাড়া পণ্যের প্রকৃত ক্রয়মূল্যের মধ্যে যোগ হওয়ায় সেটি দ্বিগুণ বাদ দেওয়া হয় না।</div>
 </div>
-<div class="card"><div class="title">💾 ডেটা ব্যবস্থাপনা</div><div class="actions"><button class="btn" onclick="backupData()">ব্যাকআপ নিন</button><button class="btn gray" onclick="document.getElementById('restore').click()">ব্যাকআপ ফেরত আনুন</button><button class="btn red" onclick="clearData()">সব ডেটা মুছুন</button></div><input id="restore" type="file" accept=".json" style="display:none" onchange="restoreData(event)"></div>
+<div class="card"><div class="title">💾 ডেটা ব্যবস্থাপনা</div><div class="actions"><button type="button" class="btn">ব্যাকআপ নিন</button><button type="button" class="btn gray">ব্যাকআপ ফেরত আনুন</button><button type="button" class="btn red">সব ডেটা মুছুন</button></div><input id="restore" type="file" accept=".json" style="display:none" onchange="restoreData(event)"></div>
 </div></section>
+
+<div class="drawer" id="drawer"><div class="drawer-bg" id="drawerBg"></div><div class="drawer-panel"><button type="button" class="drawer-close" id="drawerClose">×</button><h3>☰ মেনু</h3><button type="button" class="drawer-link" data-page="home">🏠 হোম</button><button type="button" class="drawer-link" data-page="investment">💼 বিনিয়োগ</button><button type="button" class="drawer-link" data-page="sales">🛍️ বিক্রি</button><button type="button" class="drawer-link" data-page="purchase">🛒 ক্রয় / চালান</button><button type="button" class="drawer-link" data-page="stock">📦 স্টক</button><button type="button" class="drawer-link" data-page="expense">💰 অন্যান্য খরচ</button><button type="button" class="drawer-link" data-page="report">📊 রিপোর্ট</button></div></div>
 
 <nav class="bottom">
 <a class="nav active" id="nav-home" href="#home">🏠<br>হোম</a>
@@ -236,23 +239,4 @@ function render(){
  $("salesTable").innerHTML=data.sales.length?data.sales.slice().reverse().map(x=>`<tr><td>${x.date}</td><td>${esc(x.product)}</td><td>${money(x.qty)}</td><td>৳ ${money(x.total)}</td><td>৳ ${money(x.profit)}</td><td>৳ ${money(x.due)}</td></tr>`).join(""):`<tr><td colspan="6" class="empty">কোনো বিক্রি নেই</td></tr>`;
  $("purchaseTable").innerHTML=data.purchases.length?data.purchases.slice().reverse().map(x=>`<tr><td>${x.date}</td><td>${esc(x.product)}</td><td>${money(x.qty)}</td><td>৳ ${money(x.unitPrice*x.qty)}</td><td>৳ ${money(x.vehicle)}</td><td>৳ ${money(x.total)}</td><td>৳ ${money(x.effectiveCost)}</td></tr>`).join(""):`<tr><td colspan="7" class="empty">কোনো ক্রয় নেই</td></tr>`;
  $("expenseTable").innerHTML=data.expenses.length?data.expenses.slice().reverse().map(x=>`<tr><td>${x.date}</td><td>${esc(x.name)}</td><td>৳ ${money(x.amount)}</td></tr>`).join(""):`<tr><td colspan="3" class="empty">কোনো খরচ নেই</td></tr>`;
- $("stockTable").innerHTML=data.products.length?data.products.map(p=>`<tr><td>${esc(p.name)}</td><td>${money(p.stock)}</td><td>৳ ${money(p.cost)}</td><td>৳ ${money(p.salePrice)}</td><td>৳ ${money((num(p.salePrice)-num(p.cost))*num(p.stock))}</td></tr>`).join(""):`<tr><td colspan="5" class="empty">স্টকে কোনো পণ্য নেই</td></tr>`;
-}
-function calc(){
- let inv=data.investments.reduce((s,x)=>s+num(x.amount),0);
- let sales=data.sales.reduce((s,x)=>s+num(x.total),0);
- let cogs=data.sales.reduce((s,x)=>s+num(x.cost),0);
- let gross=sales-cogs;
- let vehicle=data.purchases.reduce((s,x)=>s+num(x.vehicle),0);
- let other=data.expenses.reduce((s,x)=>s+num(x.amount),0);
- /* গাড়ি ভাড়া purchase cost-এর মধ্যে ইতিমধ্যে COGS-এ আছে; তাই আবার বাদ দেওয়া হবে না */
- let net=gross-other;
- let due=data.sales.reduce((s,x)=>s+num(x.due),0);
- let supplierDue=data.purchases.reduce((s,x)=>s+num(x.due),0);
- let today=dateNow(),ts=data.sales.filter(x=>x.date===today).reduce((s,x)=>s+num(x.total),0),tp=data.sales.filter(x=>x.date===today).reduce((s,x)=>s+num(x.profit),0);
- let left=Math.max(0,inv-net);
- let margin=sales>0?Math.max(0,net/sales):0;
- let needed=margin>0?left/margin:0;
- [["todaySales",ts],["todayProfit",tp],["customerDue",due],["supplierDue",supplierDue],["investTotal",inv],["allSales",sales],["grossProfit",gross],["allExpense",vehicle+other],["netProfit",net],["investmentLeft",left],["salesNeeded",needed],["rInv",inv],["rSales",sales],["rCost",cogs],["rVehicle",vehicle],["rExpense",other],["rNet",net]].forEach(([id,v])=>$(id).textContent=money(v));
-}
-function esc(s){return String(s??"").
+ $("stockTable").innerHTML=data.products.length?data.products.m
