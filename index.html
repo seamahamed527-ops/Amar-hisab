@@ -6,116 +6,274 @@
 <meta name="theme-color" content="#078b7f">
 <title>আমার ব্যবসার হিসাব</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f4f7f7;color:#202525;font-family:Arial,"Noto Sans Bengali",sans-serif;padding-bottom:82px}
+*{box-sizing:border-box}
+body{margin:0;background:#f4f7f7;color:#202525;font-family:Arial,"Noto Sans Bengali",sans-serif;padding-bottom:85px}
 header{height:62px;background:#078b7f;color:white;display:flex;align-items:center;padding:0 15px;position:sticky;top:0;z-index:10;box-shadow:0 2px 8px #0003}
-header h1{font-size:23px;margin:0 0 0 14px}.menu{font-size:30px}
-.hero{background:#078b7f;color:#fff;text-align:center;padding:28px 12px 32px}.hero h2{font-size:34px;margin:0}.hero p{font-size:18px;margin:7px 0 0}
-main{max-width:900px;margin:auto;padding:15px}.page{display:none}.page.active{display:block}
-.card{background:white;border-radius:22px;padding:18px;margin-bottom:15px;box-shadow:0 3px 18px #0000000d}.title{text-align:center;font-size:27px;font-weight:bold;margin-bottom:16px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.box{background:#e7faf7;border-radius:16px;padding:14px;text-align:center}.box b{display:block;font-size:25px;margin-top:5px}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}label{font-weight:bold;display:block;margin-bottom:6px}input,select{width:100%;padding:13px;border:1px solid #ccd8d6;border-radius:11px;font-size:16px;background:white}
-.full{grid-column:1/-1}.preview{background:#eefbf9;padding:14px;border-radius:15px;line-height:2;margin-top:14px}
-.btn{width:100%;border:0;border-radius:12px;padding:14px;background:#078b7f;color:#fff;font-weight:bold;font-size:17px;margin-top:12px;cursor:pointer}.btn:active{opacity:.75}
-.btn.red{background:#d43d45}.btn.gray{background:#65706e}
-table{width:100%;border-collapse:collapse;min-width:650px}th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left}th{background:#078b7f;color:#fff}.scroll{overflow:auto}
-.bottom{position:fixed;bottom:0;left:0;right:0;height:76px;background:#fff;border-top:1px solid #ddd;display:grid;grid-template-columns:repeat(5,1fr);z-index:20}.nav{border:0;background:#fff;font-size:13px;color:#444}.nav.active{color:#078b7f;font-weight:bold}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions .btn{margin:0}
-.small{font-size:14px;color:#687371}.good{color:#087f55}.bad{color:#d43d45}
-@media(max-width:600px){.form{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.title{font-size:25px}.hero h2{font-size:31px}}
+header h1{font-size:22px;margin:0 0 0 10px}
+.hero{background:#078b7f;color:#fff;text-align:center;padding:22px 12px 26px}
+.hero h2{font-size:30px;margin:0}
+.hero p{font-size:16px;margin:5px 0 0}
+main{max-width:900px;margin:auto;padding:15px}
+.page{display:none}
+.page.active{display:block}
+.card{background:white;border-radius:20px;padding:18px;margin-bottom:15px;box-shadow:0 3px 18px #0000000d}
+.title{text-align:center;font-size:24px;font-weight:bold;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.box{background:#e7faf7;border-radius:16px;padding:14px;text-align:center}
+.box b{display:block;font-size:22px;margin-top:5px}
+.box.highlight{background:#d8f3ee;border:1px solid #078b7f}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{font-weight:bold;display:block;margin-bottom:6px}
+input,select{width:100%;padding:12px;border:1px solid #ccd8d6;border-radius:11px;font-size:16px;background:white}
+.full{grid-column:1/-1}
+.preview{background:#eefbf9;padding:14px;border-radius:15px;line-height:2;margin-top:14px}
+.btn{width:100%;border:0;border-radius:12px;padding:14px;background:#078b7f;color:#fff;font-weight:bold;font-size:16px;margin-top:10px;cursor:pointer}
+.btn:active{opacity:.75}
+.btn.red{background:#d43d45}
+.btn.gray{background:#65706e}
+.btn.orange{background:#e67e22}
+table{width:100%;border-collapse:collapse;min-width:650px}
+th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left}
+th{background:#078b7f;color:#fff}
+.scroll{overflow:auto}
+.bottom{position:fixed;bottom:0;left:0;right:0;height:76px;background:#fff;border-top:1px solid #ddd;display:grid;grid-template-columns:repeat(5,1fr);z-index:20}
+.nav{border:0;background:#fff;font-size:13px;color:#444;cursor:pointer}
+.nav.active{color:#078b7f;font-weight:bold}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.actions .btn{margin:0}
+.small{font-size:14px;color:#687371}
+.good{color:#087f55;font-weight:bold}
+.bad{color:#d43d45;font-weight:bold}
+.status-box{text-align:center;padding:15px;background:#f9fbfb;border-radius:16px;margin-top:10px;border:1px dashed #078b7f}
+@media(max-width:600px){.form{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.title{font-size:22px}}
 </style>
 </head>
 <body>
-<header><div class="menu">☰</div><h1>আমার ব্যবসার হিসাব</h1></header>
+<header><h1>আমার ব্যবসার হিসাব</h1></header>
 
-<section class="hero"><h2>দোকান হিসাব</h2><p>মুদি / পাইকারি ব্যবসার সম্পূর্ণ হিসাব</p></section>
+<section class="hero">
+  <h2>দোকান হিসাব</h2>
+  <p>পণ্য বিনিয়োগ, বিক্রি ও লাভের সহজ হিসাব</p>
+</section>
 
 <main>
+<!-- হোম পেজ -->
 <section id="home" class="page active">
-<div class="card"><div class="title">আজকের হিসাব</div><div class="grid">
-<div class="box">আজকের বিক্রি<b>৳ <span id="hSales">০</span></b></div>
-<div class="box">আজকের লাভ<b>৳ <span id="hProfit">০</span></b></div>
-<div class="box">ক্রেতার বাকি<b>৳ <span id="hCustomerDue">০</span></b></div>
-<div class="box">সরবরাহকারীর বাকি<b>৳ <span id="hSupplierDue">০</span></b></div>
-</div></div>
+  <div class="card">
+    <div class="title">⚡ দ্রুত এন্ট্রি / শর্টকাট</div>
+    <div class="actions">
+      <button class="btn" data-nav="sales">🛍️ বিক্রি করুন</button>
+      <button class="btn" data-nav="purchase">🛒 পণ্য কিনুন</button>
+      <button class="btn orange" data-nav="investment">💼 বিনিয়োগ যোগ</button>
+      <button class="btn gray" data-nav="expense">💰 খরচ যোগ</button>
+    </div>
+  </div>
 
-<div class="card"><div class="title">ব্যবসার সারসংক্ষেপ</div><div class="grid">
-<div class="box">মোট বিনিয়োগ<b>৳ <span id="hInvestment">০</span></b></div>
-<div class="box">মোট বিক্রি<b>৳ <span id="hAllSales">০</span></b></div>
-<div class="box">মোট লাভ<b>৳ <span id="hGross">০</span></b></div>
-<div class="box">মোট খরচ<b>৳ <span id="hExpense">০</span></b></div>
-<div class="box">Overall লাভ/ক্ষতি<b>৳ <span id="hNet">০</span></b></div>
-<div class="box">বিনিয়োগ ফেরত বাকি<b>৳ <span id="hReturn">০</span></b></div>
-</div></div>
+  <div class="card">
+    <div class="title">আজকের হিসাব</div>
+    <div class="grid">
+      <div class="box">আজকের বিক্রি<b>৳ <span id="hSales">০</span></b></div>
+      <div class="box">আজকের লাভ<b>৳ <span id="hProfit">০</span></b></div>
+      <div class="box">ক্রেতার বাকি<b>৳ <span id="hCustomerDue">০</span></b></div>
+      <div class="box">সরবরাহকারীর বাকি<b>৳ <span id="hSupplierDue">০</span></b></div>
+    </div>
+  </div>
 
-<div class="card"><div class="title">🎯 বিনিয়োগ ফেরত</div><p class="small">বর্তমান লাভের হার ধরে বিনিয়োগের টাকা ফেরত পেতে আনুমানিক আরও যত টাকার বিক্রি দরকার:</p><div style="text-align:center;font-size:32px;font-weight:bold">৳ <span id="hNeeded">০</span></div></div>
+  <div class="card">
+    <div class="title">📈 বিনিয়োগ ও লাভ (আলাদা হিসাব)</div>
+    <div class="grid">
+      <div class="box">পণ্য কেনার খরচ<b>৳ <span id="hProductPurchases">০</span></b></div>
+      <div class="box">মোট মূলধন বিনিয়োগ<b>৳ <span id="hInvestment">০</span></b></div>
+      <div class="box">খাঁটি মোট লাভ (Net)<b>৳ <span id="hNetProfit">০</span></b></div>
+      <div class="box highlight">বিনিয়োগ + লাভ (মোট)<b>৳ <span id="hTotalWealth">০</span></b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="title">🔄 বিনিয়োগ ওঠার অবস্থা</div>
+    <div class="status-box">
+      <div id="hRecoveryStatus" style="font-size:19px;margin-bottom:10px;">হিসাব করা হচ্ছে...</div>
+      <div class="grid">
+        <div class="box">লাভ থেকে উসূল হয়েছে<b>৳ <span id="hRecoveredAmount">০</span></b></div>
+        <div class="box">উঠতে বাকি আছে<b>৳ <span id="hRemainingInv">০</span></b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="title">ব্যবসার সারসংক্ষেপ</div>
+    <div class="grid">
+      <div class="box">মোট বিক্রি<b>৳ <span id="hAllSales">০</span></b></div>
+      <div class="box">মোট লাভ (Gross)<b>৳ <span id="hGross">০</span></b></div>
+      <div class="box">অন্যান্য খরচ<b>৳ <span id="hExpense">০</span></b></div>
+      <div class="box">Overall লাভ/ক্ষতি<b>৳ <span id="hNet">০</span></b></div>
+      <div class="box">বিনিয়োগ ফেরত বাকি<b>৳ <span id="hReturn">০</span></b></div>
+      <div class="box">লাভের হার (Margin)<b><span id="hMargin">০%</span></b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="title">🎯 বিনিয়োগ ফেরত পূর্বাভাস</div>
+    <p class="small" style="text-align:center;">বর্তমান লাভের হার ধরে বিনিয়োগের টাকা সম্পূর্ণ ফেরত পেতে আনুমানিক আরও যত টাকার বিক্রি দরকার:</p>
+    <div style="text-align:center;font-size:30px;font-weight:bold;color:#078b7f">৳ <span id="hNeeded">০</span></div>
+  </div>
 </section>
 
+<!-- বিনিয়োগ পেজ -->
 <section id="investment" class="page">
-<div class="card"><div class="title">💼 বিনিয়োগ যোগ করুন</div>
-<div class="form"><div><label>টাকার পরিমাণ</label><input id="iAmount" type="number" min="0"></div><div><label>বিবরণ</label><input id="iNote" placeholder="যেমন: ব্যবসা শুরু"></div></div>
-<button class="btn" id="iSave">বিনিয়োগ সংরক্ষণ করুন</button></div>
-<div class="card"><div class="title">বিনিয়োগের তালিকা</div><div class="scroll"><table><thead><tr><th>তারিখ</th><th>বিবরণ</th><th>টাকা</th></tr></thead><tbody id="iTable"></tbody></table></div></div>
+  <div class="card">
+    <div class="title">💼 মূলধন বিনিয়োগ যোগ করুন</div>
+    <div class="form">
+      <div><label>টাকার পরিমাণ</label><input id="iAmount" type="number" min="0" placeholder="যেমন: 5000"></div>
+      <div><label>বিবরণ</label><input id="iNote" placeholder="যেমন: ব্যবসা শুরু / নতুন ক্যাশ"></div>
+    </div>
+    <button class="btn" id="iSave">বিনিয়োগ সংরক্ষণ করুন</button>
+  </div>
+  <div class="card">
+    <div class="title">বিনিয়োগের তালিকা</div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>তারিখ</th><th>বিবরণ</th><th>টাকা</th></tr></thead>
+        <tbody id="iTable"></tbody>
+      </table>
+    </div>
+  </div>
 </section>
 
+<!-- ক্রয় / চালান পেজ -->
 <section id="purchase" class="page">
-<div class="card"><div class="title">🛒 ক্রয় / চালান</div>
-<div class="form">
-<div><label>পণ্যের নাম</label><input id="pName"></div>
-<div><label>পরিমাণ</label><input id="pQty" type="number" min="1"></div>
-<div><label>প্রতি ইউনিট ক্রয়মূল্য</label><input id="pPrice" type="number" min="0"></div>
-<div><label>গাড়ি ভাড়া</label><input id="pCar" type="number" min="0" value="0"></div>
-<div><label>সরবরাহকারীর নাম</label><input id="pSupplier"></div>
-<div><label>পরিশোধিত টাকা</label><input id="pPaid" type="number" min="0" value="0"></div>
-</div>
-<div class="preview">পণ্যের দাম: ৳ <b id="pRaw">০</b><br>গাড়ি ভাড়া: ৳ <b id="pCarShow">০</b><br>চালানসহ মোট: ৳ <b id="pTotal">০</b><br>প্রতি ইউনিট প্রকৃত মূল্য: ৳ <b id="pUnit">০</b><br>সরবরাহকারীর বাকি: ৳ <b id="pDue">০</b></div>
-<button class="btn" id="pSave">ক্রয় সংরক্ষণ করুন</button>
-</div>
-<div class="card"><div class="title">ক্রয়ের তালিকা</div><div class="scroll"><table><thead><tr><th>তারিখ</th><th>পণ্য</th><th>পরিমাণ</th><th>পণ্যের দাম</th><th>গাড়ি</th><th>চালানসহ</th><th>প্রকৃত ইউনিট মূল্য</th></tr></thead><tbody id="pTable"></tbody></table></div></div>
+  <div class="card">
+    <div class="title">🛒 পণ্য ক্রয় / চালান</div>
+    <div class="form">
+      <div><label>পণ্যের নাম</label><input id="pName" placeholder="যেমন: থ্রি-পিস / হেডফোন"></div>
+      <div><label>পরিমাণ</label><input id="pQty" type="number" min="1"></div>
+      <div><label>প্রতি ইউনিট ক্রয়মূল্য</label><input id="pPrice" type="number" min="0"></div>
+      <div><label>গাড়ি ভাড়া / আনুষঙ্গিক</label><input id="pCar" type="number" min="0" value="0"></div>
+      <div><label>সরবরাহকারীর নাম</label><input id="pSupplier" placeholder="মহাজন/পাইকার"></div>
+      <div><label>পরিশোধিত টাকা</label><input id="pPaid" type="number" min="0" value="0"></div>
+    </div>
+    <div class="preview">
+      পণ্যের দাম: ৳ <b id="pRaw">০</b><br>
+      গাড়ি ভাড়া: ৳ <b id="pCarShow">০</b><br>
+      চালানসহ মোট: ৳ <b id="pTotal">০</b><br>
+      প্রতি ইউনিট প্রকৃত খরচ: ৳ <b id="pUnit">০</b><br>
+      সরবরাহকারীর বাকি: ৳ <b id="pDue">০</b>
+    </div>
+    <button class="btn" id="pSave">ক্রয় সংরক্ষণ করুন</button>
+  </div>
+  <div class="card">
+    <div class="title">ক্রয়ের তালিকা</div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>তারিখ</th><th>পণ্য</th><th>পরিমাণ</th><th>পণ্যের দাম</th><th>গাড়ি</th><th>চালানসহ মোট</th><th>ইউনিট খরচ</th></tr></thead>
+        <tbody id="pTable"></tbody>
+      </table>
+    </div>
+  </div>
 </section>
 
+<!-- বিক্রি পেজ -->
 <section id="sales" class="page">
-<div class="card"><div class="title">🛍️ বিক্রির হিসাব</div>
-<div class="form">
-<div class="full"><label>পণ্য</label><select id="sProduct"></select></div>
-<div><label>পরিমাণ</label><input id="sQty" type="number" min="1"></div>
-<div><label>প্রতি ইউনিট বিক্রয় মূল্য</label><input id="sPrice" type="number" min="0"></div>
-<div><label>ক্রেতার নাম</label><input id="sCustomer"></div>
-<div><label>পরিশোধিত টাকা</label><input id="sPaid" type="number" min="0" value="0"></div>
-</div>
-<div class="preview">মোট বিক্রি: ৳ <b id="sTotal">০</b><br>বিক্রি হওয়া পণ্যের প্রকৃত খরচ: ৳ <b id="sCost">০</b><br>লাভ: ৳ <b id="sProfit">০</b><br>ক্রেতার বাকি: ৳ <b id="sDue">০</b></div>
-<button class="btn" id="sSave">বিক্রি সংরক্ষণ করুন</button>
-</div>
-<div class="card"><div class="title">বিক্রির তালিকা</div><div class="scroll"><table><thead><tr><th>তারিখ</th><th>পণ্য</th><th>পরিমাণ</th><th>বিক্রি</th><th>লাভ</th><th>বাকি</th></tr></thead><tbody id="sTable"></tbody></table></div></div>
+  <div class="card">
+    <div class="title">🛍️ বিক্রির হিসাব</div>
+    <div class="form">
+      <div class="full"><label>পণ্য নির্বাচন করুন</label><select id="sProduct"></select></div>
+      <div><label>পরিমাণ</label><input id="sQty" type="number" min="1"></div>
+      <div><label>প্রতি ইউনিট বিক্রয় মূল্য</label><input id="sPrice" type="number" min="0"></div>
+      <div><label>ক্রেতার নাম</label><input id="sCustomer" placeholder="কাস্টমারের নাম"></div>
+      <div><label>জমা / পরিশোধিত টাকা</label><input id="sPaid" type="number" min="0" value="0"></div>
+    </div>
+    <div class="preview">
+      মোট বিক্রি: ৳ <b id="sTotal">০</b><br>
+      পণ্যের প্রকৃত কেনা খরচ: ৳ <b id="sCost">০</b><br>
+      লাভ: ৳ <b id="sProfit">০</b><br>
+      ক্রেতার বাকি: ৳ <b id="sDue">০</b>
+    </div>
+    <button class="btn" id="sSave">বিক্রি সংরক্ষণ করুন</button>
+  </div>
+  <div class="card">
+    <div class="title">বিক্রির তালিকা</div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>তারিখ</th><th>পণ্য</th><th>পরিমাণ</th><th>বিক্রি</th><th>লাভ</th><th>বাকি</th></tr></thead>
+        <tbody id="sTable"></tbody>
+      </table>
+    </div>
+  </div>
 </section>
 
+<!-- স্টক পেজ -->
 <section id="stock" class="page">
-<div class="card"><div class="title">📦 স্টক</div><div class="scroll"><table><thead><tr><th>পণ্য</th><th>স্টক</th><th>প্রকৃত ক্রয়মূল্য</th><th>বিক্রয় মূল্য</th><th>সম্ভাব্য লাভ</th></tr></thead><tbody id="stTable"></tbody></table></div></div>
+  <div class="card">
+    <div class="title">📦 বর্তমান স্টক ও সম্ভাব্য লাভ</div>
+    <div class="grid" style="margin-bottom:15px;">
+      <div class="box">মোট স্টক পণ্য<b><span id="stTotalQty">০</span> টি</b></div>
+      <div class="box highlight">সব বেচলে মোট সম্ভাব্য লাভ<b>৳ <span id="stTotalProfit">০</span></b></div>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>পণ্য</th><th>স্টক</th><th>প্রকৃত কেনা খরচ</th><th>বিক্রয় মূল্য</th><th>সম্ভাব্য লাভ</th></tr></thead>
+        <tbody id="stTable"></tbody>
+      </table>
+    </div>
+  </div>
 </section>
 
+<!-- অন্যান্য খরচ পেজ -->
 <section id="expense" class="page">
-<div class="card"><div class="title">💰 অন্যান্য খরচ</div><div class="form"><div><label>খরচের ধরন</label><input id="eName"></div><div><label>টাকার পরিমাণ</label><input id="eAmount" type="number" min="0"></div></div><button class="btn" id="eSave">খরচ সংরক্ষণ করুন</button></div>
-<div class="card"><div class="title">খরচের তালিকা</div><div class="scroll"><table><thead><tr><th>তারিখ</th><th>ধরন</th><th>টাকা</th></tr></thead><tbody id="eTable"></tbody></table></div></div>
+  <div class="card">
+    <div class="title">💰 অন্যান্য খরচ যোগ করুন</div>
+    <div class="form">
+      <div><label>খরচের ধরন</label><input id="eName" placeholder="যেমন: দোকান ভাড়া / নাস্তা"></div>
+      <div><label>টাকার পরিমাণ</label><input id="eAmount" type="number" min="0"></div>
+    </div>
+    <button class="btn" id="eSave">খরচ সংরক্ষণ করুন</button>
+  </div>
+  <div class="card">
+    <div class="title">খরচের তালিকা</div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>তারিখ</th><th>ধরন</th><th>টাকা</th></tr></thead>
+        <tbody id="eTable"></tbody>
+      </table>
+    </div>
+  </div>
 </section>
 
+<!-- পূর্ণ রিপোর্ট ও ব্যাকআপ পেজ -->
 <section id="report" class="page">
-<div class="card"><div class="title">📊 পূর্ণ রিপোর্ট</div><div class="grid">
-<div class="box">মোট বিনিয়োগ<b>৳ <span id="rInv">০</span></b></div>
-<div class="box">মোট বিক্রি<b>৳ <span id="rSales">০</span></b></div>
-<div class="box">পণ্যের প্রকৃত খরচ<b>৳ <span id="rCost">০</span></b></div>
-<div class="box">গাড়ি ভাড়া<b>৳ <span id="rCar">০</span></b></div>
-<div class="box">অন্যান্য খরচ<b>৳ <span id="rOther">০</span></b></div>
-<div class="box">Overall লাভ/ক্ষতি<b>৳ <span id="rNet">০</span></b></div>
-</div></div>
-<div class="card"><div class="title">ডেটা</div><div class="actions"><button class="btn" id="backup">ব্যাকআপ</button><button class="btn gray" id="restoreBtn">ব্যাকআপ ফেরত</button></div><input id="restoreFile" type="file" accept=".json" hidden><button class="btn red" id="clear">সব হিসাব মুছে দিন</button></div>
+  <div class="card">
+    <div class="title">📊 পূর্ণ রিপোর্ট</div>
+    <div class="grid">
+      <div class="box">মোট মূলধন বিনিয়োগ<b>৳ <span id="rInv">০</span></b></div>
+      <div class="box">পণ্য কেনা মোট খরচ<b>৳ <span id="rPurchases">০</span></b></div>
+      <div class="box">মোট বিক্রি<b>৳ <span id="rSales">০</span></b></div>
+      <div class="box">বিক্রীত পণ্যের কেনা দাম<b>৳ <span id="rCost">০</span></b></div>
+      <div class="box">গাড়ি ভাড়া (চালান)<b>৳ <span id="rCar">০</span></b></div>
+      <div class="box">অন্যান্য খরচ<b>৳ <span id="rOther">০</span></b></div>
+      <div class="box">Overall নিট লাভ/ক্ষতি<b>৳ <span id="rNet">০</span></b></div>
+      <div class="box highlight">মোট সম্পদ (ক্যাশ+লাভ)<b>৳ <span id="rTotalWealth">০</span></b></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="title">ডেটা ব্যাকআপ ও রিসেট</div>
+    <div class="actions">
+      <button class="btn" id="backup">📥 ব্যাকআপ ডাউনলোড</button>
+      <button class="btn gray" id="restoreBtn">📤 ব্যাকআপ ফেরত আনুন</button>
+    </div>
+    <input id="restoreFile" type="file" accept=".json" hidden>
+    <button class="btn red" id="clear">⚠️ সব হিসাব মুছে দিন (Reset)</button>
+  </div>
 </section>
 </main>
 
+<!-- নেভিগেশন বার -->
 <nav class="bottom">
-<button class="nav active" data-page="home">🏠<br>হোম</button>
-<button class="nav" data-page="sales">🛍️<br>বিক্রি</button>
-<button class="nav" data-page="purchase">🛒<br>ক্রয়</button>
-<button class="nav" data-page="stock">📦<br>স্টক</button>
-<button class="nav" data-page="report">📊<br>রিপোর্ট</button>
+  <button class="nav active" data-page="home">🏠<br>হোম</button>
+  <button class="nav" data-page="sales">🛍️<br>বিক্রি</button>
+  <button class="nav" data-page="purchase">🛒<br>ক্রয়</button>
+  <button class="nav" data-page="stock">📦<br>স্টক</button>
+  <button class="nav" data-page="report">📊<br>রিপোর্ট</button>
 </nav>
 
 <script>
@@ -123,19 +281,29 @@ table{width:100%;border-collapse:collapse;min-width:650px}th,td{padding:10px;bor
 "use strict";
 var KEY="business_hisab_working_2026";
 var D=JSON.parse(localStorage.getItem(KEY)||"null")||{investments:[],purchases:[],sales:[],expenses:[],products:[]};
+
 function $(id){return document.getElementById(id)}
 function n(v){var x=parseFloat(v);return isFinite(x)?x:0}
 function bn(x){return n(x).toLocaleString("bn-BD",{maximumFractionDigits:2})}
 function today(){return new Date().toLocaleDateString("bn-BD")}
 function esc(x){return String(x||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 function save(){localStorage.setItem(KEY,JSON.stringify(D))}
+
 function nav(page){
  document.querySelectorAll(".page").forEach(function(x){x.classList.remove("active")});
- $(page).classList.add("active");
+ var target = $(page);
+ if(target) target.classList.add("active");
  document.querySelectorAll(".nav").forEach(function(x){x.classList.toggle("active",x.getAttribute("data-page")===page)});
- window.scrollTo(0,0);render()
+ window.scrollTo(0,0);
+ render();
 }
-document.querySelectorAll(".nav").forEach(function(b){b.addEventListener("click",function(){nav(b.getAttribute("data-page"))})});
+
+document.querySelectorAll(".nav, [data-nav]").forEach(function(b){
+ b.addEventListener("click",function(){
+   var p = b.getAttribute("data-page") || b.getAttribute("data-nav");
+   if(p) nav(p);
+ });
+});
 
 function purchaseCalc(){
  var q=n($("pQty").value),p=n($("pPrice").value),c=n($("pCar").value),paid=n($("pPaid").value),raw=q*p,total=raw+c;
@@ -152,39 +320,57 @@ function saleCalc(){
 $("sProduct").addEventListener("change",saleCalc);
 
 $("iSave").addEventListener("click",function(){
- var a=n($("iAmount").value);if(a<=0){alert("বিনিয়োগের টাকার পরিমাণ দিন।");return}
- D.investments.push({date:today(),amount:a,note:$("iNote").value.trim()||"ব্যবসায় বিনিয়োগ"});save();
- $("iAmount").value="";$("iNote").value="";render();alert("বিনিয়োগ সংরক্ষণ হয়েছে।")
+ var a=n($("iAmount").value);if(a<=0){alert("বিনিয়োগের টাকার সঠিক পরিমাণ দিন।");return}
+ D.investments.push({date:today(),amount:a,note:$("iNote").value.trim()||"ব্যবসায় মূলধন বিনিয়োগ"});
+ save();
+ $("iAmount").value="";$("iNote").value="";
+ render();alert("বিনিয়োগ সফলভাবে সংরক্ষণ হয়েছে!");
 });
 
 $("pSave").addEventListener("click",function(){
  var name=$("pName").value.trim(),q=n($("pQty").value),price=n($("pPrice").value),car=n($("pCar").value),paid=n($("pPaid").value);
- if(!name){alert("পণ্যের নাম দিন।");return} if(q<=0){alert("পরিমাণ দিন।");return}
+ if(!name){alert(" পণ্যের নাম দিন।");return} if(q<=0){alert("সঠিক পরিমাণ দিন।");return}
  var raw=q*price,total=raw+car,unit=total/q,due=Math.max(0,total-paid);
  var old=D.products.find(function(x){return x.name===name});
- if(old){var ns=n(old.stock)+q;old.cost=((n(old.stock)*n(old.cost))+(q*unit))/ns;old.stock=ns;if(!old.salePrice)old.salePrice=unit}
- else D.products.push({name:name,stock:q,cost:unit,salePrice:unit});
+ if(old){
+  var ns=n(old.stock)+q;
+  old.cost=((n(old.stock)*n(old.cost))+(q*unit))/ns;
+  old.stock=ns;
+  if(!old.salePrice)old.salePrice=unit;
+ } else {
+  D.products.push({name:name,stock:q,cost:unit,salePrice:unit});
+ }
  D.purchases.push({date:today(),product:name,qty:q,raw:raw,car:car,total:total,unit:unit,supplier:$("pSupplier").value.trim(),paid:paid,due:due});
- save();["pName","pQty","pPrice","pSupplier","pPaid"].forEach(function(id){$(id).value=""});$("pCar").value="0";render();alert("ক্রয় সংরক্ষণ হয়েছে।")
+ save();
+ ["pName","pQty","pPrice","pSupplier","pPaid"].forEach(function(id){$(id).value=""});
+ $("pCar").value="0";
+ render();alert("ক্রয় সফলভাবে সংরক্ষণ হয়েছে!");
 });
 
 $("sSave").addEventListener("click",function(){
  var name=$("sProduct").value,q=n($("sQty").value),price=n($("sPrice").value),paid=n($("sPaid").value),p=D.products.find(function(x){return x.name===name});
  if(!p){alert("আগে ক্রয় করে স্টকে পণ্য যোগ করুন।");return}
- if(q<=0){alert("পরিমাণ দিন।");return} if(q>n(p.stock)){alert("স্টকে পর্যাপ্ত পণ্য নেই।");return}
+ if(q<=0){alert("পরিমাণ দিন।");return} if(q>n(p.stock)){alert("স্টকে পর্যাপ্ত পণ্য নেই (বর্তমান স্টক: "+p.stock+ ")");return}
  var total=q*price,c=q*n(p.cost),profit=total-c,due=Math.max(0,total-paid);
  D.sales.push({date:today(),product:name,qty:q,price:price,total:total,cost:c,profit:profit,customer:$("sCustomer").value.trim(),paid:paid,due:due});
- p.stock=n(p.stock)-q;if(price>0)p.salePrice=price;save();
- $("sQty").value="";$("sPrice").value="";$("sCustomer").value="";$("sPaid").value="0";render();alert("বিক্রি সংরক্ষণ হয়েছে।")
+ p.stock=n(p.stock)-q;
+ if(price>0)p.salePrice=price;
+ save();
+ $("sQty").value="";$("sPrice").value="";$("sCustomer").value="";$("sPaid").value="0";
+ render();alert("বিক্রি সফলভাবে সংরক্ষণ হয়েছে!");
 });
 
 $("eSave").addEventListener("click",function(){
- var name=$("eName").value.trim(),a=n($("eAmount").value);if(!name||a<=0){alert("খরচের তথ্য দিন।");return}
- D.expenses.push({date:today(),name:name,amount:a});save();$("eName").value="";$("eAmount").value="";render();alert("খরচ সংরক্ষণ হয়েছে।")
+ var name=$("eName").value.trim(),a=n($("eAmount").value);
+ if(!name||a<=0){alert("খরচের ধরন ও টাকার সঠিক পরিমাণ দিন।");return}
+ D.expenses.push({date:today(),name:name,amount:a});
+ save();$("eName").value="";$("eAmount").value="";
+ render();alert("খরচের হিসাব সংরক্ষণ হয়েছে!");
 });
 
 function render(){
  var inv=D.investments.reduce(function(s,x){return s+n(x.amount)},0);
+ var totalPurchases=D.purchases.reduce(function(s,x){return s+n(x.total)},0);
  var sales=D.sales.reduce(function(s,x){return s+n(x.total)},0);
  var cogs=D.sales.reduce(function(s,x){return s+n(x.cost)},0);
  var gross=sales-cogs;
@@ -192,78 +378,40 @@ function render(){
  var other=D.expenses.reduce(function(s,x){return s+n(x.amount)},0);
  var net=gross-other;
  var dueC=D.sales.reduce(function(s,x){return s+n(x.due)},0),dueS=D.purchases.reduce(function(s,x){return s+n(x.due)},0);
- var ret=Math.max(0,inv-net),margin=sales>0?Math.max(0,net/sales):0,needed=margin>0?ret/margin:0;
+ 
+ var baseInvestment = inv > 0 ? inv : totalPurchases;
+ var totalWealth = inv + net;
+ var ret = Math.max(0, baseInvestment - net);
+ var margin = sales > 0 ? Math.max(0, net / sales) : 0;
+ var needed = margin > 0 ? ret / margin : 0;
+ 
+ var statusEl = $("hRecoveryStatus");
+ var recovered = Math.min(baseInvestment, Math.max(0, net));
+ var remaining = Math.max(0, baseInvestment - net);
+
+ if(baseInvestment === 0){
+  statusEl.innerHTML = "<span class='small'>এখনও কোনো মূলধন বা কেনাকাটার হিসাব যোগ করা হয়নি।</span>";
+ } else if(net >= baseInvestment){
+  statusEl.innerHTML = "<span class='good'>🎉 আপনার মূল বিনিয়োগ সম্পূর্ণ উঠেছে এবং অতিরিক্ত ৳ " + bn(net - baseInvestment) + " খাঁটি লাভ হয়েছে!</span>";
+ } else {
+  var pct = Math.min(100, Math.round((net / baseInvestment) * 100));
+  if(pct < 0) pct = 0;
+  statusEl.innerHTML = "<span class='bad'>⏳ বিনিয়োগ ওঠার অবস্থা: " + pct + "% (আরও ৳ " + bn(remaining) + " উঠা বাকি)</span>";
+ }
+
+ $("hProductPurchases").textContent = bn(totalPurchases);
+ $("hNetProfit").textContent = bn(net);
+ $("hTotalWealth").textContent = bn(totalWealth);
+ $("hRecoveredAmount").textContent = bn(recovered);
+ $("hRemainingInv").textContent = bn(remaining);
+ $("hMargin").textContent = (margin * 100).toFixed(1) + "%";
+ $("rPurchases").textContent = bn(totalPurchases);
+ $("rTotalWealth").textContent = bn(totalWealth);
+
  var td=today(),ts=D.sales.filter(function(x){return x.date===td}).reduce(function(s,x){return s+n(x.total)},0),tp=D.sales.filter(function(x){return x.date===td}).reduce(function(s,x){return s+n(x.profit)},0);
- [["hSales",ts],["hProfit",tp],["hCustomerDue",dueC],["hSupplierDue",dueS],["hInvestment",inv],["hAllSales",sales],["hGross",gross],["hExpense",car+other],["hNet",net],["hReturn",ret],["hNeeded",needed],["rInv",inv],["rSales",sales],["rCost",cogs],["rCar",car],["rOther",other],["rNet",net]].forEach(function(a){$(a[0]).textContent=bn(a[1])});
- $("sProduct").innerHTML=D.products.length?D.products.map(function(p){return "<option value=\""+esc(p.name)+"\">"+esc(p.name)+" — স্টক "+bn(p.stock)+" — ৳"+bn(p.cost)+"</option>"}).join(""):"<option value=\"\">স্টকে কোনো পণ্য নেই</option>";
- $("iTable").innerHTML=D.investments.length?D.investments.slice().reverse().map(function(x){return "<tr><td>"+x.date+"</td><td>"+esc(x.note)+"</td><td>৳ "+bn(x.amount)+"</td></tr>"}).join(""):"<tr><td colspan=\"3\">কোনো বিনিয়োগ নেই</td></tr>";
- $("pTable").innerHTML=D.purchases.length?D.purchases.slice().reverse().map(function(x){return "<tr><td>"+x.date+"</td><td>"+esc(x.product)+"</td><td>"+bn(x.qty)+"</td><td>৳ "+bn(x.raw)+"</td><td>৳ "+bn(x.car)+"</td><td>৳ "+bn(x.total)+"</td><td>৳ "+bn(x.unit)+"</td></tr>"}).join(""):"<tr><td colspan=\"7\">কোনো ক্রয় নেই</td></tr>";
- $("sTable").innerHTML=D.sales.length?D.sales.slice().reverse().map(function(x){return "<tr><td>"+x.date+"</td><td>"+esc(x.product)+"</td><td>"+bn(x.qty)+"</td><td>৳ "+bn(x.total)+"</td><td>৳ "+bn(x.profit)+"</td><td>৳ "+bn(x.due)+"</td></tr>"}).join(""):"<tr><td colspan=\"6\">কোনো বিক্রি নেই</td></tr>";
- $("eTable").innerHTML=D.expenses.length?D.expenses.slice().reverse().map(function(x){return "<tr><td>"+x.date+"</td><td>"+esc(x.name)+"</td><td>৳ "+bn(x.amount)+"</td></tr>"}).join(""):"<tr><td colspan=\"3\">কোনো খরচ নেই</td></tr>";
- $("stTable").innerHTML=D.products.length?D.products.map(function(p){return "<tr><td>"+esc(p.name)+"</td><td>"+bn(p.stock)+"</td><td>৳ "+bn(p.cost)+"</td><td>৳ "+bn(p.salePrice)+"</td><td>৳ "+bn((n(p.salePrice)-n(p.cost))*n(p.stock))+"</td></tr>"}).join(""):"<tr><td colspan=\"5\">কোনো স্টক নেই</td></tr>";
- saleCalc();purchaseCalc()
-}
-$("backup").addEventListener("click",function(){
- var blob=new Blob([JSON.stringify(D,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
- a.href=url;a.download="business-hisab-backup.json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1000)
-});
-$("restoreBtn").addEventListener("click",function(){$("restoreFile").click()});
-$("restoreFile").addEventListener("change",function(e){
- var f=e.target.files[0];if(!f)return;var r=new FileReader();
- r.onload=function(){try{var x=JSON.parse(r.result);if(!x.investments||!x.purchases||!x.sales||!x.expenses||!x.products)throw Error();D=x;save();render();alert("ব্যাকআপ সফলভাবে ফেরত এসেছে।")}catch(err){alert("ব্যাকআপ ফাইলটি সঠিক নয়।")}};
- r.readAsText(f)
-});
-$("clear").addEventListener("click",function(){if(confirm("সব হিসাব মুছে ফেলবেন?")){D={investments:[],purchases:[],sales:[],expenses:[],products:[]};save();render()}});
-render();
-})();
- <!-- বিনিয়োগ ফেরত হিসাব -->
-<div style="background:#fff;padding:18px;border-radius:18px;margin:15px 0;
-box-shadow:0 3px 15px #0001;font-family:Arial,sans-serif">
+ [["hSales",ts],["hProfit",tp],["hCustomerDue",dueC],["hSupplierDue",dueS],["hInvestment",inv],["hAllSales",sales],["hGross",gross],["hExpense",car+other],["hNet",net],["hReturn",ret],["hNeeded",needed],["rInv",inv],["rSales",sales],["rCost",cogs],["rCar",car],["rOther",other],["rNet",net]].forEach(function(a){if($(a[0]))$(a[0]).textContent=bn(a[1])});
 
-<h2 style="text-align:center">💰 বিনিয়োগ ফেরত হিসাব</h2>
-
-<label>মোট বিনিয়োগ (৳)</label>
-<input id="investment" type="number" placeholder="যেমন 50000"
-style="width:100%;padding:12px;margin:6px 0 12px;border-radius:10px;border:1px solid #ccc">
-
-<label>এখন পর্যন্ত উঠেছে (৳)</label>
-<input id="raised" type="number" placeholder="যেমন 12000"
-style="width:100%;padding:12px;margin:6px 0 12px;border-radius:10px;border:1px solid #ccc">
-
-<label>প্রতিদিন গড়ে ওঠে (৳)</label>
-<input id="daily" type="number" placeholder="যেমন 1000"
-style="width:100%;padding:12px;margin:6px 0 15px;border-radius:10px;border:1px solid #ccc">
-
-<button onclick="calculateReturn()" 
-style="width:100%;padding:14px;background:#078b7f;color:white;
-border:0;border-radius:10px;font-size:17px;font-weight:bold">
-হিসাব দেখুন
-</button>
-
-<div id="returnResult" style="margin-top:15px;background:#e9faf7;
-padding:15px;border-radius:12px;line-height:2">
-</div>
-
-</div>
-
-<script>
-function calculateReturn(){
-
-    let investment = Number(document.getElementById("investment").value);
-    let raised = Number(document.getElementById("raised").value);
-    let daily = Number(document.getElementById("daily").value);
-
-    let remaining = Math.max(0, investment - raised);
-
-    let days = daily > 0 ? Math.ceil(remaining / daily) : 0;
-
-    document.getElementById("returnResult").innerHTML = `
-        মোট বিনিয়োগ: <b>৳ ${investment.toLocaleString()}</b><br>
-        এখন পর্যন্ত উঠেছে: <b>৳ ${raised.toLocaleString()}</b><br>
-        ফেরত পেতে বাকি: <b>৳ ${remaining.toLocaleString()}</b><br>
-        আনুমানিক সময়: <b>${days} দিন</b>
-    `;
-}
-</script>
-</body>
-</html>
+ $("sProduct").innerHTML=D.products.length?D.products.map(function(p){return "<option value=\""+esc(p.name)+"\">"+esc(p.name)+" — স্টক: "+bn(p.stock)+" (কেনা: ৳"+bn(p.cost)+")</option>"}).join(""):"<option value=\"\">স্টকে কোনো পণ্য নেই</option>";
+ $("iTable").innerHTML=D.investments.length?D.investments.slice().reverse().map(function(x){return "<tr><td>"+x.date+"</td><td>"+esc(x.note)+"</td><td>৳ "+bn(x.amount)+"</td></tr>"}).join(""):"<tr><td colspan=\"3\">কোনো বিনিয়োগের হিসাব নেই</td></tr>";
+ $("pTable").innerHTML=D.purchases.length?D.purchases.slice().reverse().map(function(x){return "<tr><td>"+x.date+"</td><td>"+esc(x.product)+"</td><td>"+bn(x.qty)+"</td><td>৳ "+bn(x.raw)+"</td><td>৳ "+bn(x.car)+"</td><td>৳ "+bn(x.total)+"</td><td>৳ "+bn(x.unit)+"</td></tr>"}).join(""):"<tr><td colspan=\"7\">কোনো ক্রয়ের হিসাব নেই</td></tr>";
+ 
