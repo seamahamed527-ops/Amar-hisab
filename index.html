@@ -277,141 +277,167 @@ th{background:#078b7f;color:#fff}
 </nav>
 
 <script>
-(function(){
-"use strict";
-var KEY="business_hisab_working_2026";
-var D=JSON.parse(localStorage.getItem(KEY)||"null")||{investments:[],purchases:[],sales:[],expenses:[],products:[]};
+document.addEventListener("DOMContentLoaded", function(){
+ "use strict";
+ var KEY = "business_hisab_working_2026";
+ var D = {investments:[],purchases:[],sales:[],expenses:[],products:[]};
 
-function $(id){return document.getElementById(id)}
-function n(v){var x=parseFloat(v);return isFinite(x)?x:0}
-function bn(x){return n(x).toLocaleString("bn-BD",{maximumFractionDigits:2})}
-function today(){return new Date().toLocaleDateString("bn-BD")}
-function esc(x){return String(x||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-function save(){localStorage.setItem(KEY,JSON.stringify(D))}
+ // সুরক্ষিত লোকাল স্টোরেজ রিড
+ try {
+   var stored = localStorage.getItem(KEY);
+   if(stored) D = JSON.parse(stored);
+ } catch(err) {
+   console.warn("Storage restricted", err);
+ }
 
-function nav(page){
- document.querySelectorAll(".page").forEach(function(x){x.classList.remove("active")});
- var target = $(page);
- if(target) target.classList.add("active");
- document.querySelectorAll(".nav").forEach(function(x){x.classList.toggle("active",x.getAttribute("data-page")===page)});
- window.scrollTo(0,0);
- render();
-}
+ function $(id){ return document.getElementById(id); }
+ function n(v){ var x = parseFloat(v); return isFinite(x) ? x : 0; }
+ function bn(x){ return n(x).toLocaleString("bn-BD",{maximumFractionDigits:2}); }
+ function today(){ return new Date().toLocaleDateString("bn-BD"); }
+ function esc(x){ return String(x||"").replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+ 
+ function save(){
+  try {
+    localStorage.setItem(KEY, JSON.stringify(D));
+  } catch(err) {
+    console.warn("Storage write failed", err);
+  }
+ }
 
-document.querySelectorAll(".nav, [data-nav]").forEach(function(b){
- b.addEventListener("click",function(){
-   var p = b.getAttribute("data-page") || b.getAttribute("data-nav");
-   if(p) nav(p);
+ function nav(pageId){
+  if(!pageId) return;
+  document.querySelectorAll(".page").forEach(function(x){ x.classList.remove("active"); });
+  var target = $(pageId);
+  if(target) target.classList.add("active");
+  
+  document.querySelectorAll(".nav").forEach(function(x){
+    x.classList.toggle("active", x.getAttribute("data-page") === pageId);
+  });
+  window.scrollTo(0,0);
+  render();
+ }
+
+ // বিশ্বস্ত ক্লিক ইভেন্ট লিসেনার (Event Delegation)
+ document.addEventListener("click", function(e){
+   var btn = e.target.closest("[data-page], [data-nav]");
+   if(btn){
+     var p = btn.getAttribute("data-page") || btn.getAttribute("data-nav");
+     if(p) nav(p);
+   }
  });
-});
 
-function purchaseCalc(){
- var q=n($("pQty").value),p=n($("pPrice").value),c=n($("pCar").value),paid=n($("pPaid").value),raw=q*p,total=raw+c;
- $("pRaw").textContent=bn(raw);$("pCarShow").textContent=bn(c);$("pTotal").textContent=bn(total);
- $("pUnit").textContent=bn(q?total/q:0);$("pDue").textContent=bn(Math.max(0,total-paid))
-}
-["pQty","pPrice","pCar","pPaid"].forEach(function(id){$(id).addEventListener("input",purchaseCalc)});
-
-function saleCalc(){
- var prod=D.products.find(function(x){return x.name===$("sProduct").value}),q=n($("sQty").value),price=n($("sPrice").value),paid=n($("sPaid").value),cost=prod?n(prod.cost):0,total=q*price,c=q*cost;
- $("sTotal").textContent=bn(total);$("sCost").textContent=bn(c);$("sProfit").textContent=bn(total-c);$("sDue").textContent=bn(Math.max(0,total-paid))
-}
-["sQty","sPrice","sPaid"].forEach(function(id){$(id).addEventListener("input",saleCalc)});
-$("sProduct").addEventListener("change",saleCalc);
-
-$("iSave").addEventListener("click",function(){
- var a=n($("iAmount").value);if(a<=0){alert("বিনিয়োগের টাকার সঠিক পরিমাণ দিন।");return}
- D.investments.push({date:today(),amount:a,note:$("iNote").value.trim()||"ব্যবসায় মূলধন বিনিয়োগ"});
- save();
- $("iAmount").value="";$("iNote").value="";
- render();alert("বিনিয়োগ সফলভাবে সংরক্ষণ হয়েছে!");
-});
-
-$("pSave").addEventListener("click",function(){
- var name=$("pName").value.trim(),q=n($("pQty").value),price=n($("pPrice").value),car=n($("pCar").value),paid=n($("pPaid").value);
- if(!name){alert(" পণ্যের নাম দিন।");return} if(q<=0){alert("সঠিক পরিমাণ দিন।");return}
- var raw=q*price,total=raw+car,unit=total/q,due=Math.max(0,total-paid);
- var old=D.products.find(function(x){return x.name===name});
- if(old){
-  var ns=n(old.stock)+q;
-  old.cost=((n(old.stock)*n(old.cost))+(q*unit))/ns;
-  old.stock=ns;
-  if(!old.salePrice)old.salePrice=unit;
- } else {
-  D.products.push({name:name,stock:q,cost:unit,salePrice:unit});
- }
- D.purchases.push({date:today(),product:name,qty:q,raw:raw,car:car,total:total,unit:unit,supplier:$("pSupplier").value.trim(),paid:paid,due:due});
- save();
- ["pName","pQty","pPrice","pSupplier","pPaid"].forEach(function(id){$(id).value=""});
- $("pCar").value="0";
- render();alert("ক্রয় সফলভাবে সংরক্ষণ হয়েছে!");
-});
-
-$("sSave").addEventListener("click",function(){
- var name=$("sProduct").value,q=n($("sQty").value),price=n($("sPrice").value),paid=n($("sPaid").value),p=D.products.find(function(x){return x.name===name});
- if(!p){alert("আগে ক্রয় করে স্টকে পণ্য যোগ করুন।");return}
- if(q<=0){alert("পরিমাণ দিন।");return} if(q>n(p.stock)){alert("স্টকে পর্যাপ্ত পণ্য নেই (বর্তমান স্টক: "+p.stock+ ")");return}
- var total=q*price,c=q*n(p.cost),profit=total-c,due=Math.max(0,total-paid);
- D.sales.push({date:today(),product:name,qty:q,price:price,total:total,cost:c,profit:profit,customer:$("sCustomer").value.trim(),paid:paid,due:due});
- p.stock=n(p.stock)-q;
- if(price>0)p.salePrice=price;
- save();
- $("sQty").value="";$("sPrice").value="";$("sCustomer").value="";$("sPaid").value="0";
- render();alert("বিক্রি সফলভাবে সংরক্ষণ হয়েছে!");
-});
-
-$("eSave").addEventListener("click",function(){
- var name=$("eName").value.trim(),a=n($("eAmount").value);
- if(!name||a<=0){alert("খরচের ধরন ও টাকার সঠিক পরিমাণ দিন।");return}
- D.expenses.push({date:today(),name:name,amount:a});
- save();$("eName").value="";$("eAmount").value="";
- render();alert("খরচের হিসাব সংরক্ষণ হয়েছে!");
-});
-
-function render(){
- var inv=D.investments.reduce(function(s,x){return s+n(x.amount)},0);
- var totalPurchases=D.purchases.reduce(function(s,x){return s+n(x.total)},0);
- var sales=D.sales.reduce(function(s,x){return s+n(x.total)},0);
- var cogs=D.sales.reduce(function(s,x){return s+n(x.cost)},0);
- var gross=sales-cogs;
- var car=D.purchases.reduce(function(s,x){return s+n(x.car)},0);
- var other=D.expenses.reduce(function(s,x){return s+n(x.amount)},0);
- var net=gross-other;
- var dueC=D.sales.reduce(function(s,x){return s+n(x.due)},0),dueS=D.purchases.reduce(function(s,x){return s+n(x.due)},0);
- 
- var baseInvestment = inv > 0 ? inv : totalPurchases;
- var totalWealth = inv + net;
- var ret = Math.max(0, baseInvestment - net);
- var margin = sales > 0 ? Math.max(0, net / sales) : 0;
- var needed = margin > 0 ? ret / margin : 0;
- 
- var statusEl = $("hRecoveryStatus");
- var recovered = Math.min(baseInvestment, Math.max(0, net));
- var remaining = Math.max(0, baseInvestment - net);
-
- if(baseInvestment === 0){
-  statusEl.innerHTML = "<span class='small'>এখনও কোনো মূলধন বা কেনাকাটার হিসাব যোগ করা হয়নি।</span>";
- } else if(net >= baseInvestment){
-  statusEl.innerHTML = "<span class='good'>🎉 আপনার মূল বিনিয়োগ সম্পূর্ণ উঠেছে এবং অতিরিক্ত ৳ " + bn(net - baseInvestment) + " খাঁটি লাভ হয়েছে!</span>";
- } else {
-  var pct = Math.min(100, Math.round((net / baseInvestment) * 100));
-  if(pct < 0) pct = 0;
-  statusEl.innerHTML = "<span class='bad'>⏳ বিনিয়োগ ওঠার অবস্থা: " + pct + "% (আরও ৳ " + bn(remaining) + " উঠা বাকি)</span>";
+ function purchaseCalc(){
+  var q=n($("pQty")?$("pQty").value:0), p=n($("pPrice")?$("pPrice").value:0), c=n($("pCar")?$("pCar").value:0), paid=n($("pPaid")?$("pPaid").value:0), raw=q*p, total=raw+c;
+  if($("pRaw")) $("pRaw").textContent=bn(raw);
+  if($("pCarShow")) $("pCarShow").textContent=bn(c);
+  if($("pTotal")) $("pTotal").textContent=bn(total);
+  if($("pUnit")) $("pUnit").textContent=bn(q?total/q:0);
+  if($("pDue")) $("pDue").textContent=bn(Math.max(0,total-paid));
  }
 
- $("hProductPurchases").textContent = bn(totalPurchases);
- $("hNetProfit").textContent = bn(net);
- $("hTotalWealth").textContent = bn(totalWealth);
- $("hRecoveredAmount").textContent = bn(recovered);
- $("hRemainingInv").textContent = bn(remaining);
- $("hMargin").textContent = (margin * 100).toFixed(1) + "%";
- $("rPurchases").textContent = bn(totalPurchases);
- $("rTotalWealth").textContent = bn(totalWealth);
+ function saleCalc(){
+  var sProd = $("sProduct");
+  if(!sProd) return;
+  var prod=D.products.find(function(x){return x.name===sProd.value}), q=n($("sQty")?$("sQty").value:0), price=n($("sPrice")?$("sPrice").value:0), paid=n($("sPaid")?$("sPaid").value:0), cost=prod?n(prod.cost):0, total=q*price, c=q*cost;
+  if($("sTotal")) $("sTotal").textContent=bn(total);
+  if($("sCost")) $("sCost").textContent=bn(c);
+  if($("sProfit")) $("sProfit").textContent=bn(total-c);
+  if($("sDue")) $("sDue").textContent=bn(Math.max(0,total-paid));
+ }
 
- var td=today(),ts=D.sales.filter(function(x){return x.date===td}).reduce(function(s,x){return s+n(x.total)},0),tp=D.sales.filter(function(x){return x.date===td}).reduce(function(s,x){return s+n(x.profit)},0);
- [["hSales",ts],["hProfit",tp],["hCustomerDue",dueC],["hSupplierDue",dueS],["hInvestment",inv],["hAllSales",sales],["hGross",gross],["hExpense",car+other],["hNet",net],["hReturn",ret],["hNeeded",needed],["rInv",inv],["rSales",sales],["rCost",cogs],["rCar",car],["rOther",other],["rNet",net]].forEach(function(a){if($(a[0]))$(a[0]).textContent=bn(a[1])});
+ ["pQty","pPrice","pCar","pPaid"].forEach(function(id){ var el=$(id); if(el) el.addEventListener("input",purchaseCalc); });
+ ["sQty","sPrice","sPaid"].forEach(function(id){ var el=$(id); if(el) el.addEventListener("input",saleCalc); });
+ if($("sProduct")) $("sProduct").addEventListener("change",saleCalc);
 
- $("sProduct").innerHTML=D.products.length?D.products.map(function(p){return "<option value=\""+esc(p.name)+"\">"+esc(p.name)+" — স্টক: "+bn(p.stock)+" (কেনা: ৳"+bn(p.cost)+")</option>"}).join(""):"<option value=\"\">স্টকে কোনো পণ্য নেই</option>";
- $("iTable").innerHTML=D.investments.length?D.investments.slice().reverse().map(function(x){return "<tr><td>"+x.date+"</td><td>"+esc(x.note)+"</td><td>৳ "+bn(x.amount)+"</td></tr>"}).join(""):"<tr><td colspan=\"3\">কোনো বিনিয়োগের হিসাব নেই</td></tr>";
- $("pTable").innerHTML=D.purchases.length?D.purchases.slice().reverse().map(function(x){return "<tr><td>"+x.date+"</td><td>"+esc(x.product)+"</td><td>"+bn(x.qty)+"</td><td>৳ "+bn(x.raw)+"</td><td>৳ "+bn(x.car)+"</td><td>৳ "+bn(x.total)+"</td><td>৳ "+bn(x.unit)+"</td></tr>"}).join(""):"<tr><td colspan=\"7\">কোনো ক্রয়ের হিসাব নেই</td></tr>";
- 
+ if($("iSave")) $("iSave").addEventListener("click",function(){
+  var a=n($("iAmount").value);if(a<=0){alert("বিনিয়োগের টাকার সঠিক পরিমাণ দিন।");return}
+  D.investments.push({date:today(),amount:a,note:$("iNote").value.trim()||"ব্যবসায় মূলধন বিনিয়োগ"});
+  save(); $("iAmount").value="";$("iNote").value="";
+  render();alert("বিনিয়োগ সফলভাবে সংরক্ষণ হয়েছে!");
+ });
+
+ if($("pSave")) $("pSave").addEventListener("click",function(){
+  var name=$("pName").value.trim(),q=n($("pQty").value),price=n($("pPrice").value),car=n($("pCar").value),paid=n($("pPaid").value);
+  if(!name){alert("পণ্যের নাম দিন।");return} if(q<=0){alert("সঠিক পরিমাণ দিন।");return}
+  var raw=q*price,total=raw+car,unit=total/q,due=Math.max(0,total-paid);
+  var old=D.products.find(function(x){return x.name===name});
+  if(old){
+   var ns=n(old.stock)+q;
+   old.cost=((n(old.stock)*n(old.cost))+(q*unit))/ns;
+   old.stock=ns;
+   if(!old.salePrice)old.salePrice=unit;
+  } else {
+   D.products.push({name:name,stock:q,cost:unit,salePrice:unit});
+  }
+  D.purchases.push({date:today(),product:name,qty:q,raw:raw,car:car,total:total,unit:unit,supplier:$("pSupplier").value.trim(),paid:paid,due:due});
+  save();
+  ["pName","pQty","pPrice","pSupplier","pPaid"].forEach(function(id){$(id).value=""});
+  $("pCar").value="0";
+  render();alert("ক্রয় সফলভাবে সংরক্ষণ হয়েছে!");
+ });
+
+ if($("sSave")) $("sSave").addEventListener("click",function(){
+  var name=$("sProduct").value,q=n($("sQty").value),price=n($("sPrice").value),paid=n($("sPaid").value),p=D.products.find(function(x){return x.name===name});
+  if(!p){alert("আগে ক্রয় করে স্টকে পণ্য যোগ করুন।");return}
+  if(q<=0){alert("পরিমাণ দিন।");return} if(q>n(p.stock)){alert("স্টকে পর্যাপ্ত পণ্য নেই (বর্তমান স্টক: "+p.stock+ ")");return}
+  var total=q*price,c=q*n(p.cost),profit=total-c,due=Math.max(0,total-paid);
+  D.sales.push({date:today(),product:name,qty:q,price:price,total:total,cost:c,profit:profit,customer:$("sCustomer").value.trim(),paid:paid,due:due});
+  p.stock=n(p.stock)-q;
+  if(price>0)p.salePrice=price;
+  save();
+  $("sQty").value="";$("sPrice").value="";$("sCustomer").value="";$("sPaid").value="0";
+  render();alert("বিক্রি সফলভাবে সংরক্ষণ হয়েছে!");
+ });
+
+ if($("eSave")) $("eSave").addEventListener("click",function(){
+  var name=$("eName").value.trim(),a=n($("eAmount").value);
+  if(!name||a<=0){alert("খরচের ধরন ও টাকার সঠিক পরিমাণ দিন।");return}
+  D.expenses.push({date:today(),name:name,amount:a});
+  save();$("eName").value="";$("eAmount").value="";
+  render();alert("খরচের হিসাব সংরক্ষণ হয়েছে!");
+ });
+
+ function render(){
+  var inv=D.investments.reduce(function(s,x){return s+n(x.amount)},0);
+  var totalPurchases=D.purchases.reduce(function(s,x){return s+n(x.total)},0);
+  var sales=D.sales.reduce(function(s,x){return s+n(x.total)},0);
+  var cogs=D.sales.reduce(function(s,x){return s+n(x.cost)},0);
+  var gross=sales-cogs;
+  var car=D.purchases.reduce(function(s,x){return s+n(x.car)},0);
+  var other=D.expenses.reduce(function(s,x){return s+n(x.amount)},0);
+  var net=gross-other;
+  var dueC=D.sales.reduce(function(s,x){return s+n(x.due)},0),dueS=D.purchases.reduce(function(s,x){return s+n(x.due)},0);
+  
+  var baseInvestment = inv > 0 ? inv : totalPurchases;
+  var totalWealth = inv + net;
+  var ret = Math.max(0, baseInvestment - net);
+  var margin = sales > 0 ? Math.max(0, net / sales) : 0;
+  var needed = margin > 0 ? ret / margin : 0;
+  
+  var statusEl = $("hRecoveryStatus");
+  var recovered = Math.min(baseInvestment, Math.max(0, net));
+  var remaining = Math.max(0, baseInvestment - net);
+
+  if(statusEl){
+   if(baseInvestment === 0){
+    statusEl.innerHTML = "<span class='small'>এখনও কোনো মূলধন বা কেনাকাটার হিসাব যোগ করা হয়নি।</span>";
+   } else if(net >= baseInvestment){
+    statusEl.innerHTML = "<span class='good'>🎉 আপনার মূল বিনিয়োগ সম্পূর্ণ উঠেছে এবং অতিরিক্ত ৳ " + bn(net - baseInvestment) + " খাঁটি লাভ হয়েছে!</span>";
+   } else {
+    var pct = Math.min(100, Math.round((net / baseInvestment) * 100));
+    if(pct < 0) pct = 0;
+    statusEl.innerHTML = "<span class='bad'>⏳ বিনিয়োগ ওঠার অবস্থা: " + pct + "% (আরও ৳ " + bn(remaining) + " উঠা বাকি)</span>";
+   }
+  }
+
+  if($("hProductPurchases")) $("hProductPurchases").textContent = bn(totalPurchases);
+  if($("hNetProfit")) $("hNetProfit").textContent = bn(net);
+  if($("hTotalWealth")) $("hTotalWealth").textContent = bn(totalWealth);
+  if($("hRecoveredAmount")) $("hRecoveredAmount").textContent = bn(recovered);
+  if($("hRemainingInv")) $("hRemainingInv").textContent = bn(remaining);
+  if($("hMargin")) $("hMargin").textContent = (margin * 100).toFixed(1) + "%";
+  if($("rPurchases")) $("rPurchases").textContent = bn(totalPurchases);
+  if($("rTotalWealth")) $("rTotalWealth").textContent = bn(totalWealth);
+
+  var td=today(),ts=D.sales.filter(function(x){return x.date===td}).reduce(function(s,x){return s+n(x.total)},0),tp=D.sales.filter(function(x){return x.date===td}).reduce(function(s,x){return s+n(x.profit)},0);
+  [["hSales",ts],["hProfit",tp],["hCustomerD
