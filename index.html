@@ -27,7 +27,7 @@ label{font-weight:bold;display:block;margin-bottom:6px}
 input,select{width:100%;padding:12px;border:1px solid #ccd8d6;border-radius:11px;font-size:16px;background:white}
 .full{grid-column:1/-1}
 .preview{background:#eefbf9;padding:14px;border-radius:15px;line-height:2;margin-top:14px}
-.btn{width:100%;border:0;border-radius:12px;padding:14px;background:#078b7f;color:#fff;font-weight:bold;font-size:16px;margin-top:10px;cursor:pointer}
+.btn{width:100%;border:0;border-radius:12px;padding:14px;background:#078b7f;color:#fff;font-weight:bold;font-size:16px;margin-top:10px;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .btn:active{opacity:.75}
 .btn.red{background:#d43d45}
 .btn.gray{background:#65706e}
@@ -37,7 +37,7 @@ th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left}
 th{background:#078b7f;color:#fff}
 .scroll{overflow:auto}
 .bottom{position:fixed;bottom:0;left:0;right:0;height:76px;background:#fff;border-top:1px solid #ddd;display:grid;grid-template-columns:repeat(5,1fr);z-index:20}
-.nav{border:0;background:#fff;font-size:13px;color:#444;cursor:pointer}
+.nav{border:0;background:#fff;font-size:13px;color:#444;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .nav.active{color:#078b7f;font-weight:bold}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .actions .btn{margin:0}
@@ -62,10 +62,10 @@ th{background:#078b7f;color:#fff}
   <div class="card">
     <div class="title">⚡ দ্রুত এন্ট্রি / শর্টকাট</div>
     <div class="actions">
-      <button class="btn" data-nav="sales">🛍️ বিক্রি করুন</button>
-      <button class="btn" data-nav="purchase">🛒 পণ্য কিনুন</button>
-      <button class="btn orange" data-nav="investment">💼 বিনিয়োগ যোগ</button>
-      <button class="btn gray" data-nav="expense">💰 খরচ যোগ</button>
+      <button class="btn" onclick="nav('sales')">🛍️ বিক্রি করুন</button>
+      <button class="btn" onclick="nav('purchase')">🛒 পণ্য কিনুন</button>
+      <button class="btn orange" onclick="nav('investment')">💼 বিনিয়োগ যোগ</button>
+      <button class="btn gray" onclick="nav('expense')">💰 খরচ যোগ</button>
     </div>
   </div>
 
@@ -127,7 +127,7 @@ th{background:#078b7f;color:#fff}
       <div><label>টাকার পরিমাণ</label><input id="iAmount" type="number" min="0" placeholder="যেমন: 5000"></div>
       <div><label>বিবরণ</label><input id="iNote" placeholder="যেমন: ব্যবসা শুরু / নতুন ক্যাশ"></div>
     </div>
-    <button class="btn" id="iSave">বিনিয়োগ সংরক্ষণ করুন</button>
+    <button class="btn" onclick="saveInvestment()">বিনিয়োগ সংরক্ষণ করুন</button>
   </div>
   <div class="card">
     <div class="title">বিনিয়োগের তালিকা</div>
@@ -159,7 +159,7 @@ th{background:#078b7f;color:#fff}
       প্রতি ইউনিট প্রকৃত খরচ: ৳ <b id="pUnit">০</b><br>
       সরবরাহকারীর বাকি: ৳ <b id="pDue">০</b>
     </div>
-    <button class="btn" id="pSave">ক্রয় সংরক্ষণ করুন</button>
+    <button class="btn" onclick="savePurchase()">ক্রয় সংরক্ষণ করুন</button>
   </div>
   <div class="card">
     <div class="title">ক্রয়ের তালিকা</div>
@@ -189,7 +189,7 @@ th{background:#078b7f;color:#fff}
       লাভ: ৳ <b id="sProfit">০</b><br>
       ক্রেতার বাকি: ৳ <b id="sDue">০</b>
     </div>
-    <button class="btn" id="sSave">বিক্রি সংরক্ষণ করুন</button>
+    <button class="btn" onclick="saveSale()">বিক্রি সংরক্ষণ করুন</button>
   </div>
   <div class="card">
     <div class="title">বিক্রির তালিকা</div>
@@ -227,7 +227,7 @@ th{background:#078b7f;color:#fff}
       <div><label>খরচের ধরন</label><input id="eName" placeholder="যেমন: দোকান ভাড়া / নাস্তা"></div>
       <div><label>টাকার পরিমাণ</label><input id="eAmount" type="number" min="0"></div>
     </div>
-    <button class="btn" id="eSave">খরচ সংরক্ষণ করুন</button>
+    <button class="btn" onclick="saveExpense()">খরচ সংরক্ষণ করুন</button>
   </div>
   <div class="card">
     <div class="title">খরচের তালিকা</div>
@@ -258,84 +258,75 @@ th{background:#078b7f;color:#fff}
   <div class="card">
     <div class="title">ডেটা ব্যাকআপ ও রিসেট</div>
     <div class="actions">
-      <button class="btn" id="backup">📥 ব্যাকআপ ডাউনলোড</button>
-      <button class="btn gray" id="restoreBtn">📤 ব্যাকআপ ফেরত আনুন</button>
+      <button class="btn" onclick="exportBackup()">📥 ব্যাকআপ ডাউনলোড</button>
+      <button class="btn gray" onclick="triggerRestore()">📤 ব্যাকআপ ফেরত আনুন</button>
     </div>
-    <input id="restoreFile" type="file" accept=".json" hidden>
-    <button class="btn red" id="clear">⚠️ সব হিসাব মুছে দিন (Reset)</button>
+    <input id="restoreFile" type="file" accept=".json" hidden onchange="importBackup(event)">
+    <button class="btn red" onclick="resetData()">⚠️ সব হিসাব মুছে দিন (Reset)</button>
   </div>
 </section>
 </main>
 
 <!-- নেভিগেশন বার -->
 <nav class="bottom">
-  <button class="nav active" data-page="home">🏠<br>হোম</button>
-  <button class="nav" data-page="sales">🛍️<br>বিক্রি</button>
-  <button class="nav" data-page="purchase">🛒<br>ক্রয়</button>
-  <button class="nav" data-page="stock">📦<br>স্টক</button>
-  <button class="nav" data-page="report">📊<br>রিপোর্ট</button>
+  <button class="nav active" id="btn-home" onclick="nav('home')">🏠<br>হোম</button>
+  <button class="nav" id="btn-sales" onclick="nav('sales')">🛍️<br>বিক্রি</button>
+  <button class="nav" id="btn-purchase" onclick="nav('purchase')">🛒<br>ক্রয়</button>
+  <button class="nav" id="btn-stock" onclick="nav('stock')">📦<br>স্টক</button>
+  <button class="nav" id="btn-report" onclick="nav('report')">📊<br>রিপোর্ট</button>
 </nav>
 
 <script>
-document.addEventListener("DOMContentLoaded", function(){
- "use strict";
- var KEY = "business_hisab_working_2026";
- var D = {investments:[],purchases:[],sales:[],expenses:[],products:[]};
+var KEY = "business_hisab_working_2026";
+var D = {investments:[],purchases:[],sales:[],expenses:[],products:[]};
 
- // সুরক্ষিত লোকাল স্টোরেজ রিড
- try {
-   var stored = localStorage.getItem(KEY);
-   if(stored) D = JSON.parse(stored);
- } catch(err) {
-   console.warn("Storage restricted", err);
- }
+try {
+  var stored = localStorage.getItem(KEY);
+  if(stored) D = JSON.parse(stored);
+} catch(e) {
+  console.log("Local storage fallback enabled");
+}
 
- function $(id){ return document.getElementById(id); }
- function n(v){ var x = parseFloat(v); return isFinite(x) ? x : 0; }
- function bn(x){ return n(x).toLocaleString("bn-BD",{maximumFractionDigits:2}); }
- function today(){ return new Date().toLocaleDateString("bn-BD"); }
- function esc(x){ return String(x||"").replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
- 
- function save(){
+function $(id){ return document.getElementById(id); }
+function n(v){ var x = parseFloat(v); return isFinite(x) ? x : 0; }
+function bn(x){ return n(x).toLocaleString("bn-BD",{maximumFractionDigits:2}); }
+function today(){ return new Date().toLocaleDateString("bn-BD"); }
+function esc(x){ return String(x||"").replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+
+function save(){
   try {
     localStorage.setItem(KEY, JSON.stringify(D));
-  } catch(err) {
-    console.warn("Storage write failed", err);
-  }
- }
+  } catch(e){}
+}
 
- function nav(pageId){
+function nav(pageId){
   if(!pageId) return;
-  document.querySelectorAll(".page").forEach(function(x){ x.classList.remove("active"); });
+  var pages = document.querySelectorAll(".page");
+  for(var i=0; i<pages.length; i++){ pages[i].classList.remove("active"); }
+  
   var target = $(pageId);
   if(target) target.classList.add("active");
   
-  document.querySelectorAll(".nav").forEach(function(x){
-    x.classList.toggle("active", x.getAttribute("data-page") === pageId);
-  });
+  var navBtns = document.querySelectorAll(".nav");
+  for(var j=0; j<navBtns.length; j++){ navBtns[j].classList.remove("active"); }
+  
+  var activeNav = $("btn-" + pageId);
+  if(activeNav) activeNav.classList.add("active");
+
   window.scrollTo(0,0);
   render();
- }
+}
 
- // বিশ্বস্ত ক্লিক ইভেন্ট লিসেনার (Event Delegation)
- document.addEventListener("click", function(e){
-   var btn = e.target.closest("[data-page], [data-nav]");
-   if(btn){
-     var p = btn.getAttribute("data-page") || btn.getAttribute("data-nav");
-     if(p) nav(p);
-   }
- });
-
- function purchaseCalc(){
+function purchaseCalc(){
   var q=n($("pQty")?$("pQty").value:0), p=n($("pPrice")?$("pPrice").value:0), c=n($("pCar")?$("pCar").value:0), paid=n($("pPaid")?$("pPaid").value:0), raw=q*p, total=raw+c;
   if($("pRaw")) $("pRaw").textContent=bn(raw);
   if($("pCarShow")) $("pCarShow").textContent=bn(c);
   if($("pTotal")) $("pTotal").textContent=bn(total);
   if($("pUnit")) $("pUnit").textContent=bn(q?total/q:0);
   if($("pDue")) $("pDue").textContent=bn(Math.max(0,total-paid));
- }
+}
 
- function saleCalc(){
+function saleCalc(){
   var sProd = $("sProduct");
   if(!sProd) return;
   var prod=D.products.find(function(x){return x.name===sProd.value}), q=n($("sQty")?$("sQty").value:0), price=n($("sPrice")?$("sPrice").value:0), paid=n($("sPaid")?$("sPaid").value:0), cost=prod?n(prod.cost):0, total=q*price, c=q*cost;
@@ -343,20 +334,16 @@ document.addEventListener("DOMContentLoaded", function(){
   if($("sCost")) $("sCost").textContent=bn(c);
   if($("sProfit")) $("sProfit").textContent=bn(total-c);
   if($("sDue")) $("sDue").textContent=bn(Math.max(0,total-paid));
- }
+}
 
- ["pQty","pPrice","pCar","pPaid"].forEach(function(id){ var el=$(id); if(el) el.addEventListener("input",purchaseCalc); });
- ["sQty","sPrice","sPaid"].forEach(function(id){ var el=$(id); if(el) el.addEventListener("input",saleCalc); });
- if($("sProduct")) $("sProduct").addEventListener("change",saleCalc);
-
- if($("iSave")) $("iSave").addEventListener("click",function(){
+function saveInvestment(){
   var a=n($("iAmount").value);if(a<=0){alert("বিনিয়োগের টাকার সঠিক পরিমাণ দিন।");return}
   D.investments.push({date:today(),amount:a,note:$("iNote").value.trim()||"ব্যবসায় মূলধন বিনিয়োগ"});
   save(); $("iAmount").value="";$("iNote").value="";
   render();alert("বিনিয়োগ সফলভাবে সংরক্ষণ হয়েছে!");
- });
+}
 
- if($("pSave")) $("pSave").addEventListener("click",function(){
+function savePurchase(){
   var name=$("pName").value.trim(),q=n($("pQty").value),price=n($("pPrice").value),car=n($("pCar").value),paid=n($("pPaid").value);
   if(!name){alert("পণ্যের নাম দিন।");return} if(q<=0){alert("সঠিক পরিমাণ দিন।");return}
   var raw=q*price,total=raw+car,unit=total/q,due=Math.max(0,total-paid);
@@ -371,33 +358,33 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   D.purchases.push({date:today(),product:name,qty:q,raw:raw,car:car,total:total,unit:unit,supplier:$("pSupplier").value.trim(),paid:paid,due:due});
   save();
-  ["pName","pQty","pPrice","pSupplier","pPaid"].forEach(function(id){$(id).value=""});
-  $("pCar").value="0";
+  ["pName","pQty","pPrice","pSupplier","pPaid"].forEach(function(id){if($(id)) $(id).value=""});
+  if($("pCar")) $("pCar").value="0";
   render();alert("ক্রয় সফলভাবে সংরক্ষণ হয়েছে!");
- });
+}
 
- if($("sSave")) $("sSave").addEventListener("click",function(){
+function saveSale(){
   var name=$("sProduct").value,q=n($("sQty").value),price=n($("sPrice").value),paid=n($("sPaid").value),p=D.products.find(function(x){return x.name===name});
   if(!p){alert("আগে ক্রয় করে স্টকে পণ্য যোগ করুন।");return}
-  if(q<=0){alert("পরিমাণ দিন।");return} if(q>n(p.stock)){alert("স্টকে পর্যাপ্ত পণ্য নেই (বর্তমান স্টক: "+p.stock+ ")");return}
+  if(q<=0){alert("পরিমাণ দিন।");return} if(q>n(p.stock)){alert("স্টকে পর্যাপ্ত পণ্য নেই (বর্তমান স্টক: "+p.stock+")");return}
   var total=q*price,c=q*n(p.cost),profit=total-c,due=Math.max(0,total-paid);
   D.sales.push({date:today(),product:name,qty:q,price:price,total:total,cost:c,profit:profit,customer:$("sCustomer").value.trim(),paid:paid,due:due});
   p.stock=n(p.stock)-q;
   if(price>0)p.salePrice=price;
   save();
-  $("sQty").value="";$("sPrice").value="";$("sCustomer").value="";$("sPaid").value="0";
+  if($("sQty")) $("sQty").value=""; if($("sPrice")) $("sPrice").value=""; if($("sCustomer")) $("sCustomer").value=""; if($("sPaid")) $("sPaid").value="0";
   render();alert("বিক্রি সফলভাবে সংরক্ষণ হয়েছে!");
- });
+}
 
- if($("eSave")) $("eSave").addEventListener("click",function(){
+function saveExpense(){
   var name=$("eName").value.trim(),a=n($("eAmount").value);
   if(!name||a<=0){alert("খরচের ধরন ও টাকার সঠিক পরিমাণ দিন।");return}
   D.expenses.push({date:today(),name:name,amount:a});
-  save();$("eName").value="";$("eAmount").value="";
+  save();if($("eName")) $("eName").value="";if($("eAmount")) $("eAmount").value="";
   render();alert("খরচের হিসাব সংরক্ষণ হয়েছে!");
- });
+}
 
- function render(){
+function render(){
   var inv=D.investments.reduce(function(s,x){return s+n(x.amount)},0);
   var totalPurchases=D.purchases.reduce(function(s,x){return s+n(x.total)},0);
   var sales=D.sales.reduce(function(s,x){return s+n(x.total)},0);
@@ -440,4 +427,6 @@ document.addEventListener("DOMContentLoaded", function(){
   if($("rTotalWealth")) $("rTotalWealth").textContent = bn(totalWealth);
 
   var td=today(),ts=D.sales.filter(function(x){return x.date===td}).reduce(function(s,x){return s+n(x.total)},0),tp=D.sales.filter(function(x){return x.date===td}).reduce(function(s,x){return s+n(x.profit)},0);
-  [["hSales",ts],["hProfit",tp],["hCustomerD
+  [["hSales",ts],["hProfit",tp],["hCustomerDue",dueC],["hSupplierDue",dueS],["hInvestment",inv],["hAllSales",sales],["hGross",gross],["hExpense",car+other],["hNet",net],["hReturn",ret],["hNeeded",needed],["rInv",inv],["rSales",sales],["rCost",cogs],["rCar",car],["rOther",other],["rNet",net]].forEach(function(a){if($(a[0]))$(a[0]).textContent=bn(a[1])});
+
+  if($("sProduct")) $("sProduct").innerHTML=D.pr
